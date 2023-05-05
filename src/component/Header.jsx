@@ -48,7 +48,7 @@ function Header() {
     <div>
       <img src={user} alt="" />
     </div>
-    <a className='pl-[4px] hover:text-[#800B8D] transition delay-100 duration-150' href="#">compte</a>
+    <Link className='pl-[4px] hover:text-[#800B8D] transition delay-100 duration-150' to='Signup&Login'>compte</Link>
   </div>
   <div className='flex items-center pl-[20px]'>
     <div>
@@ -73,4 +73,4 @@ function Header() {
 }
 
 export default Header;
-
+//<a className='pl-[4px] hover:text-[#800B8D] transition delay-100 duration-150' href="#">compte</a>

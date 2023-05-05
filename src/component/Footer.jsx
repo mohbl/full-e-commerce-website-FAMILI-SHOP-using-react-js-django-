@@ -73,24 +73,25 @@ const Footer = () => {
                        <div className='h-[290px] bg-white flex justify-around  '> 
                              <ul className='text-black my-7'> 
                                 <li className='py-2'> <img src={Familishop} alt="" className='w-[115px] h-[61px]' /></li> 
-                                <li className='flex items-center space-x-4'><BiMap size={20}/> <a href="" className='py-2 '>JR76+X67, N14,Tissemsilt,Algeria</a></li> 
-                                <li className='flex items-center space-x-4'><BsTelephonePlus size={20}/> <a href="" className='py-2 '>025 32 50 11</a></li>    
-                                <li className='flex items-center space-x-4'><BiTime size={20}/> <a href="" className='py-2 '>Ouvert, ferme à 21:00</a></li>  
+                                <li className='flex items-center space-x-4 hover:text-[#800B8D] transition delay-100 duration-150 '><BiMap size={20}/> <a href="" className='py-2 '>JR76+X67, N14,Tissemsilt,Algeria</a></li> 
+                                <li className='flex items-center space-x-4 hover:text-[#800B8D] transition delay-100 duration-150 '><BsTelephonePlus size={20}/> <a href="" className='py-2 '>025 32 50 11</a></li>    
+                                <li className='flex items-center space-x-4 hover:text-[#800B8D] transition delay-100 duration-150 '><BiTime size={20}/> <a href="" className='py-2 '>Ouvert, ferme à 21:00</a></li>  
               
                              </ul> 
                              <ul className='my-5 text-black ' > 
                                 <li className='py-3 text-xl font-medium '><a href="">SERVICE CLIENT</a></li> 
-                                <li className='py-1'><a href="">  • Mon compte</a></li> 
-                                <Link className='py-1' to='Guide dachat'>• Guide d'achat</Link>
-                                <li className='py-1'> • Horaire</li> 
-                                <Link className='py-1' to='FAQ'> • FAQ</Link>
+                                <li className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 '><a href="">  • Mon compte</a></li> 
+                                <Link className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 ' to='Guide dachat'>• Guide d'achat</Link>
+                                <li className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 '> • Horaire</li> 
+                                <Link className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 ' to='FAQ'> • FAQ</Link>
                               
                              </ul> 
                              <ul className='my-5 text-black'> 
                                 <li className='py-3 text-xl font-medium '>ENTREPRISE</li> 
-                                <li className='py-1'> • Qui sommes nous ?</li> 
-                                <li className='py-1'> • Blog</li> 
-                                <li className='py-1'> • contact</li> 
+                    
+                               <Link className='py-1 hover:text-[#800B8D] transition delay-100 duration-150' to='Qui somme nous'>• Qui sommes nous ?</Link>  
+                                <li className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 '> • Blog</li> 
+                               <Link className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 ' to='Contact us'>• contact</Link>    
                              </ul> 
                       
                        </div> 

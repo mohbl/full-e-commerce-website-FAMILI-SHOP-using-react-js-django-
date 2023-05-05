@@ -1,33 +1,70 @@
 import React from 'react'
 import { AiFillApple } from "react-icons/ai";
 import Cevital from '../component/assets/Cevital-Logo 1.png'
-import Extra from '../component/assets/nouveau-logo-Extra 1.png'
-import Adidas from '../component/assets/kisspng-logo-brand-adidas-sport-logo-versace-5b517f627aefe3 1.png'
+import Adidas from '../component/assets/adida.webp'
 import Geant from '../component/assets/pngwing 1.png'
 import Puma from '../component/assets/pngegg (2) 1.png'
-import Tchina from '../component/assets/kisspng-orange-juice-logo-algeria-drink-5b76f8e5533fe0 1.png'
-import LG from '../component/assets/pngegg (1) 1.png'
+import ramy from '../component/assets/ramy.png'
+import beko from '../component/assets/beko.png'
 import phones from '../component/assets/phones.png'
 import Gplay from '../component/assets/google-play 1.png'
+import lisieure from '../component/assets/lesieur.jpeg'
+import Djezzy from '../component/assets/Djezzy.png'
+import nike from '../component/assets/nike.jpg'
+import hodna from '../component/assets/hodna.png'
+import dechatlon from '../component/assets/dechatlon.png'
+import huawei from '../component/assets/dior.jpg'
+import iphone from '../component/assets/apple.jpg'
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 const AppStore = () => {
     
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 500,
+        cssEase: 'linear'
+      };
+
     return (
-        <div className=' PageContainer' >
+        <div className=' PageContainer mt-[117px]' >
        
        
             {/* our oficial sponsor */}
             
-       <div className='w-[1080px] h-[152px] flex items-center justify-between shadow mb-[115px] mx-auto  bg-white  '>
-            <img src={Cevital} alt="" className='w-[140px]' />
-            <img src={Extra} alt="" />
-            <img src={Adidas} alt="" />
-            <img src={Geant} alt="" className='w-[140px]' />
-            <img src={Puma} alt="" />
-            <img src={Tchina} alt="" />
-            <img src={LG} alt="" className='w-[140px]' />
+            
+  
+            <div className="w-[1080px] h-[160px] shadow mb-[115px] mx-auto bg-white ">
+      <Slider {...settings}>
+        <img src={Cevital} alt="Cevital" className="w-[140px] h-[140px] px-2" />
+        <img src={Adidas} alt="Adidas" className='w-[140px] h-[152px]'/>
+        <img src={Geant} alt="Geant" className="w-[140px] h-[152px]" />
+        <img src={Puma} alt="Puma" className='w-[140px] h-[152px]' />
+        <img src={ramy} alt="ramy" className='w-[140px] h-[152px]' />
+        <img src={beko} alt="LG" className="w-[140px] h-[152px]" />
+        <img src={Cevital} alt="Cevital" className="w-[140px] h-[152px]" />
+        <img src={Adidas} alt="Adidas" className='w-[140px] h-[152px]' />
+        <img src={Geant} alt="Geant" className="w-[140px] h-[152px]" />
+        <img src={Puma} alt="Puma" className='w-[140px] h-[152px]' />
+        <img src={lisieure} alt="lisieure" className='w-[140px] h-[152px]'/>
+        <img src={Djezzy} alt="LG" className="w-[140px] h-[152px]" />
+        <img src={nike} alt="LG" className="w-[140px] h-[152px]" />
+        <img src={hodna} alt="hodna" className="w-[140px] h-[152px]" />
+        <img src={dechatlon} alt="lavache" className="w-[140px] h-[152px]" />
+        <img src={huawei} alt="lavache" className=" h-[152px]" />
+        <img src={iphone} alt="lavache" className=" h-[152px]" />
+      </Slider>
         </div>
+
+
+
        
         <div  className='h-[438px]  flex justify-around bg-white'>
            

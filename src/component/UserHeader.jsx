@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState ,useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {BiMap} from 'react-icons/bi'
 import logo from './assets/logo.png'
 import {FaSearch} from 'react-icons/fa'
@@ -14,6 +14,7 @@ import { GiConfirmed} from "react-icons/gi";
 import {IoIosPeople} from 'react-icons/io'
 import {BsPersonFillUp} from 'react-icons/bs'
 import NotificationCard from './cards/NotificationCard';
+import {RiUserReceived2Line} from 'react-icons/ri'
 
 
 
@@ -21,6 +22,13 @@ function UserHeader() {
   const [isFixed, setIsFixed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/notifications')
+      .then(response => setNotifications(response.data))
+      .catch(error => console.log(error));
+  }, []);
 
   const handleDropdownClick = () => {
     setIsOpen(!isOpen);
@@ -96,7 +104,7 @@ function UserHeader() {
         )}
       </div>
       {isOpen && (
-        <div className="absolute right-0 mt-2 bg-white w-[200px] text-[#727272] z-50 ">
+        <div className="absolute right-0 mt-2 bg-white w-[200px] text-[#727272] z-50 shadow-md ">
           <ul>
             <li className="flex items-center py-3 pl-[18px] space-x-1 cursor-pointer hover:text-black">
               <BsPersonFillUp size={22} />
@@ -104,7 +112,7 @@ function UserHeader() {
             </li>
             <li className="flex items-center py-3 pl-[18px] space-x-1 cursor-pointer hover:text-black">
               <GiConfirmed size={22}  />
-              <span className='pl-3 text-md'>Mes commandes</span>
+         <Link to="Mes commande"><span className='pl-3 text-md'>Mes commandes</span></Link>     
             </li>
             <li className="flex items-center py-3 pl-[18px] space-x-1 cursor-pointer hover:text-black ">
               <IoIosPeople size={22}  />
@@ -127,7 +135,7 @@ function UserHeader() {
         <IoMdNotificationsOutline size={28} />
       </div>
       {showDropdown && (
-        <div className='absolute right-0 mt-2 bg-white w-[248px] z-50'>
+        <div className='absolute right-0 mt-2 bg-white w-[248px] z-50 shadow-md'>
           
           <ul className='py-1'>
             <li className='flex px-4 py-2 text-xl '>
@@ -135,16 +143,29 @@ function UserHeader() {
               <div className='h-4 ml-1 bg-gray-100 w-4 text-center mt-[8.5px] rounded-full'>
                 <h1 className=' text-xs text-[#800B8D]'>1</h1>
               </div>
-                
             </li>
-            <NotificationCard/>
+            {notifications.map(notification => (
+           <div className='flex pl-2 pr-2 bg-white h-[54px] items-center hover:bg-[#E3E2E2]  'key={notification.id}>
+           <RiUserReceived2Line size={35}/>
+           <h1 className='ml-1 text-xs text-left '>{notification.content}</h1>
+         <h1 className='text-[13px] text-[#727272] font-medium pb-4 '>{notification.date}AM </h1>
+         
+             </div>
+          ))}
             <li className='flex px-4 py-2 text-xl '>
              Plus tot 
               <div className='h-4 ml-4 bg-gray-100 w-4 text-center mt-[8.5px] rounded-full'>
                 <h1 className=' text-xs text-[#800B8D]'>1</h1>
               </div>
             </li>
-            <NotificationCard/>
+            {notifications.map(notification => (
+           <div className='flex pl-2 pr-2 bg-white h-[54px] items-center hover:bg-[#E3E2E2]  ' key={notification.id}>
+           <RiUserReceived2Line size={30}/>
+           <h1 className='ml-1 text-xs text-left '>{notification.content}</h1>
+         <h1 className='text-[13px] text-[#727272] font-medium pb-4 '>{notification.date}AM </h1>
+         
+             </div>
+          ))}
           </ul>
         </div>
       )}

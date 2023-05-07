@@ -7,11 +7,14 @@ import { Hightech } from '../component/cards/Hightech'
 import Stocklimite from '../component/cards/Stocklimite'
 import Nouvaeaux from '../component/cards/Nouvaeaux'
 import Offresspéciales from '../component/cards/Offresspéciales'
+import { MagazinClub } from './MagazinClub'
+import MagazinClubCard from '../component/cards/MagazinClubCard'
 const LandingPage = () => {
   return (
     <>
-   <Test/>
+  <Test/>
    <AdsCarte/>
+   <MagazinClubCard/>
    <Stocklimite/>
    <CarteCadeau/>
    <Offresspéciales/>
@@ -21,10 +24,11 @@ const LandingPage = () => {
    </div>
    <AppStore/>
    
+   
     </>
   )
 }
 
 export default LandingPage
 
-{/* */}
+{/* <MagazinClub/>*/}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {BiMap} from 'react-icons/bi'
 import logo from './assets/logo.png'
 import {FaSearch} from 'react-icons/fa'
@@ -10,11 +10,28 @@ import react from '@heroicons/react';
 import { icons } from 'feather-icons';
 
 function Header() {
+  const [isFixed, setIsFixed] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 0) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   return (
     
     
-      <div className='PageContainer'>
+      <div className={`PageContainer ${isFixed ? 'fixed top-0 w-full z-50 bg-white shadow-lg ' : ''}`}>
         
        
        <div class="flex flex-col  md:flex-row justify-between items-center text-sm md:text-base text-gray-500  ">

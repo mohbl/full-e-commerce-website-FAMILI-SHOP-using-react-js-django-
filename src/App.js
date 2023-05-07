@@ -13,7 +13,8 @@ import UserHeader from "./component/UserHeader"
 import Quisommenous from "./pages/Quisommenous";
 import Signup from "./pages/Signup";
 import PageCarteCadeau from "./pages/PageCarteCadeau";
-
+import  Commande from "./pages/Commande";
+import { MagazinClub } from "./pages/MagazinClub";
 
 function App() {
   return (
@@ -27,10 +28,12 @@ function App() {
             <Route path="/Signup&Login" element={<Signup/>} />
             <Route path="/Guide dachat" element={<GuideAchat/>} />
             <Route path="/FAQ" element={<FAQpage/>} />
-            <Route path="/Product" element={<ProductPage/>} />
+            <Route path="/Product/:id" element={<ProductPage/>} />
             <Route path="/Contact us" element={<Contact/>} />
             <Route path="/Qui somme nous" element={<Quisommenous/>} />
             <Route path="/Carte cadeau" element={<PageCarteCadeau/>} />
+            <Route path="/Mes commande" element={<Commande/>} />
+            <Route path="/Magazin club" element={<MagazinClub/>} />
           </Routes>
       <Footer/>
      </Router>

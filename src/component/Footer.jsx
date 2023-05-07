@@ -1,7 +1,8 @@
-import React from 'react' 
+import React ,{useState} from 'react' 
 import { Link , NavLink } from 'react-router-dom';
 import Familishop from './assets/famili shop 2.png' 
 import Paypal from './assets/paypal-logo-png-2116 2.png' 
+import {AiOutlineClose} from 'react-icons/ai'
 import { TbTruckDelivery } from "react-icons/tb"; 
 import {GiDiceTarget} from "react-icons/gi"
 import {MdOutlineSecurity} from "react-icons/md"
@@ -15,7 +16,17 @@ import {AiFillFacebook} from 'react-icons/ai'
 import instagram from '../component/assets/5296765_camera_instagram_instagram logo_icon (1).png'
 import visaa from "../component/assets/visa-logo-png-2025 2.png"
 import masterCard from "../component/assets/discover-logo-png-pic-5681 2.png"
+import Signup from "../pages/Signup";
 const Footer = () => { 
+ 
+  const [login , setlogin]=useState(false);  
+const gotologin=()=>{
+setlogin(true) ;
+}
+const closelogin=()=>{
+  setlogin(false) ;
+  }
+  
   return ( 
     <div className='PageContainer'> 
         <div className=' h-[495px] bg-white z-10'> 
@@ -80,9 +91,9 @@ const Footer = () => {
                              </ul> 
                              <ul className='my-5 text-black ' > 
                                 <li className='py-3 text-xl font-medium '><a href="">SERVICE CLIENT</a></li> 
-                                <li className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 '><a href="">  • Mon compte</a></li> 
+                                <li className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 cursor-pointer ' > <a  onClick={gotologin} >  • Mon compte</a></li> 
                                 <Link className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 ' to='Guide dachat'>• Guide d'achat</Link>
-                                <li className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 '> • Horaire</li> 
+                                <li className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 '>  <Link to='Horaire'> • Horaire</Link> </li> 
                                 <Link className='py-1 hover:text-[#800B8D] transition delay-100 duration-150 ' to='FAQ'> • FAQ</Link>
                               
                              </ul> 
@@ -119,6 +130,17 @@ const Footer = () => {
  
         </div> 
        
+        {  login  ? <div className=   'fixed  top-0 left-0 bg-gray-900/90   w-full h-full z-10 overflow-y-auto  '>
+        <div  className=' relative  m-auto top-0 left-0  w-[60%] h-full z-10'>
+        <AiOutlineClose className='absolute top-8 right-20 cursor-pointer ' onClick={closelogin}  />
+        <Signup />  
+        </div>
+       
+         
+       </div> : ''  }
+
+
+
     </div> 
   ) 
 } 

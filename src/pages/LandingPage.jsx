@@ -7,6 +7,10 @@ import { Hightech } from '../component/cards/Hightech'
 import Stocklimite from '../component/cards/Stocklimite'
 import Nouvaeaux from '../component/cards/Nouvaeaux'
 import Offresspéciales from '../component/cards/Offresspéciales'
+import Hightech1 from '../component/cards/Hightech1'
+import OffresRamadan from '../component/cards/OffresRamadan'
+import Plusdemandés from '../component/cards/Plusdemandés'
+import Vurécemment from '../component/cards/Vurécemment'
 const LandingPage = () => {
   return (
     <>
@@ -17,8 +21,12 @@ const LandingPage = () => {
    <Offresspéciales/>
    <Nouvaeaux/>
    <Hightech/>
-   <div className=' PageContainer h-[800px] flex justify-center text-center bg-white mt-6 pt-52'>
-   </div>
+    
+   <Hightech1/>
+   <OffresRamadan/>
+   <Plusdemandés/>
+   <Vurécemment/>
+   
    <AppStore/>
    
     </>

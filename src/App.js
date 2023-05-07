@@ -13,7 +13,9 @@ import UserHeader from "./component/UserHeader"
 import Quisommenous from "./pages/Quisommenous";
 import Signup from "./pages/Signup";
 import PageCarteCadeau from "./pages/PageCarteCadeau";
-
+import Horaire from "./pages/Horaire";
+import Profile from "./pages/Profile";
+ 
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
             <Route path="/Contact us" element={<Contact/>} />
             <Route path="/Qui somme nous" element={<Quisommenous/>} />
             <Route path="/Carte cadeau" element={<PageCarteCadeau/>} />
+            <Route path="/Horaire" element={<Horaire/>} />
+            < Route path="/Profile" element={<Profile/>} />
           </Routes>
       <Footer/>
      </Router>

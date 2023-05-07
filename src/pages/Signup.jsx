@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import Logo from '../component/assets/logo.png'
+import facebook from '../component/assets/facebook.png'
+import google from '../component/assets/google.png'
 export const Login = () => {
 const [login , setlogin]=useState(false)
 
   
   return (
-    <div name='Login' className='PageContainer'>
+    <div name='Login' className='PageContainer bg-white'>
       <div className='flex items-center justify-center '>
         <img src={Logo} alt="" className='w-[100px] h-[50px] my-2  ' />
       </div>
       <div className= 'flex items-center justify-center gap-10 pt-3' >
-        <h1 className={ login ?'border-b-2 cursor-pointer border-purple-900 transition-all duration-300 ease-in-out ': 'cursor-pointer'  }  onClick={()=>setlogin(true)}>Se connecter</h1>
-        <h1 className= {!login ? 'border-b-2 cursor-pointer border-purple-900 transition-all duration-200 ease-in-out ' :'cursor-pointer' }onClick={()=>setlogin(false)} >S’inscrire</h1>
+        <h1 className={ login ?'border-b-2 cursor-pointer border-[#800B8D] transition-all duration-300 ease-in-out ': 'cursor-pointer'  }  onClick={()=>setlogin(true)}>Se connecter</h1>
+        <h1 className= {!login ? 'border-b-2 cursor-pointer border-[#800B8D] transition-all duration-200 ease-in-out ' :'cursor-pointer' }onClick={()=>setlogin(false)} >S’inscrire</h1>
       </div>
      
      
@@ -36,15 +38,25 @@ const [login , setlogin]=useState(false)
   
       </div>
       <div className='flex items-center justify-center p-4 '>
-         <button className='h-[46px] w-[402px] bg-purple-700 text-white ' type='submit'>
+         <button className='h-[46px] w-[402px] bg-[#800B8D] text-white ' type='submit'>
           connexion
          </button>
       </div>
-      <div class="inline-flex items-center justify-center w-full">
+     
+     <div className={ login ? ' hidden' :  'flex justify-center '}>
+       <input type="checkbox"  className='mx-2'/>
+       <h1 className='text-center '> J'ai lu et accepté les <span className='text-[#800B8D] underline cursor-pointer '> Termes et conditions </span> </h1>
+     </div>
+     
+      <div class="inline-flex items-center justify-center w-full ">
     <hr class="w-[402px] h-px my-6 bg-gray-200 border-0 dark:bg-gray-700" />
-    <h1 class="absolute px-2  text-gray-900 -translate-x-1/2 bg-white left-1/2 ">continue avec</h1>
-    
-</div>
+    <h1 class="absolute px-2  text-gray-900 -translate-x-1/2 bg-white left-1/2 font-semibold ">continue avec</h1>
+     
+     </div>
+    <div className=' flex justify-center items-center p-1'>
+      <img src={facebook} alt=""  className='mx-3 cursor-pointer'/>
+      <img src={google} alt="" className='mx-3 cursor-pointer ' />
+    </div>
     </div>
   )
 }

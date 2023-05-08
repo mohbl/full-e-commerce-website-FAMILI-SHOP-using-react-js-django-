@@ -2,7 +2,7 @@ import React from "react";
 import  { useState , useEffect} from "react"; 
 import { MdFavoriteBorder ,MdFavorite } from "react-icons/md";
 import {Link} from "react-router-dom";
-import Stocklimite from '../component/assets/Group234.png'
+import Offre from '../component/assets/Group359.png'
 const Offrespeciale = () => {
   
   const [list, setList] = useState([]);
@@ -51,11 +51,11 @@ return (
      <div className="p-2   bg-[#ffffff] shadow-lg ">
          
          <div>
-            <img src={Stocklimite} alt="" />
+            <img src={Offre} alt="" />
          </div>
           
           <div className="flex ">
-          <h1 className='text-black font-bold border-b-2 border-[#A078BC]'> Stock limité Termine dans : </h1>
+          <h1 className='text-black font-bold border-b-2 border-[#A078BC]'> Offres spéciales </h1>
           </div>
           <div className='grid grid-cols-1 m-2  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2'>
            {posts.map((post)=>(

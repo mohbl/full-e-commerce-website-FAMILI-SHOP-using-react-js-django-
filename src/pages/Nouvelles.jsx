@@ -2,7 +2,7 @@ import React from "react";
 import  { useState , useEffect} from "react"; 
 import { MdFavoriteBorder ,MdFavorite } from "react-icons/md";
 import {Link} from "react-router-dom";
-import OffresRamadan from '../component/assets/Rectangle131.png'
+import Nouveles from '../component/assets/Group360.png'
 const Nouvelles = () => {
   
   const [list, setList] = useState([]);
@@ -51,7 +51,7 @@ return (
      <div className="p-2   bg-[#ffffff] shadow-lg ">
          
          <div>
-            <img src={OffresRamadan} alt="" />
+            <img src={Nouveles} alt="" />
          </div>
           
           <div className="flex ">

@@ -1,20 +1,22 @@
 import React from "react"; 
 import  { useState , useEffect} from "react"; 
 import {Link} from "react-router-dom";
+import axios from 'axios';
+
 const Stocklimite = () => {
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
-       fetch('https://fakestoreapi.com/products?limit=2')
-          .then((response) => response.json())
-          .then((data) => {
-             console.log(data);
-             setPosts(data);
-          })
-          .catch((err) => {
-             console.log(err.message);
-          });
-    }, []);
-console.log(posts) 
+   const [products, setProducts] = useState([]);
+   useEffect(() => {
+      axios.get('https://familishop.onrender.com/products/')
+        .then((response) => {
+          console.log(response.data);
+          const shuffledProducts = response.data.sort(() => 0.5 - Math.random());
+          const randomProducts = shuffledProducts.slice(0, 2); // Only take the first 2 random products
+          setProducts(randomProducts);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }, []); 
 
 var calculeWidth=( stock , q)=>{
         
@@ -35,29 +37,29 @@ return (
       
           </div>
           <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 '>
-           {posts.map((post)=>(
-            <div key={post.id} className='  bg-[#ffffff]  shadow-xl flex justify-around  m-2  ' > 
+           {products.map((Product)=>(
+            <Link key={Product.id} className='  bg-[#ffffff]  shadow-xl flex justify-around  m-2  ' to={'/Product/'+Product.id} > 
              {/* produit et promotion */}
              <div className=" relative flex justify-center items-center w-[230px] h-[268px] bg-[#F8F8F8]">
              <div className=''>
-             <img src={post.image} className='h-[110px] w-[110px] '/>
-             <h1 className='absolute top-2 right-4 text-red-700 bg-[#E50014]/10'>-{post.price}%</h1>
+          {/*<img src={Product.image} className='h-[110px] w-[110px] '/> */}   
+             <h1 className='absolute top-2 right-4 text-red-700 bg-[#E50014]/10'>-{Product.unit_price}%</h1>
              </div>
              </div>
              {/* description et marque */}
              <div className='p-1 mx-2 text-black '>
-             <p className='text-sm text-black '> {post.title} </p>
+             <p className='text-sm text-black '> {Product.title} </p>
              <div className='flex items-center justify-start my-1 '> 
-             <p className='mx-2 text-sm text-red-500 line-through '> {post.price} </p>
-             <p className='text-sm  font-bold text-[#3AF24B] '> {post.price} </p>
+             <p className='mx-2 text-sm text-red-500 line-through '> {Product.unit_price} </p>
+             <p className='text-sm  font-bold text-[#3AF24B] '> {Product.unit_price} </p>
              </div>
-             <p className='text-xs'>{post.category} </p>
+             <p className='text-xs'>{Product.collection_name} </p>
              <div className='my-2'>
-               <p>{post.rating.rate}  articles restants</p>
+               <p>{Product.inventory}  articles restants</p>
              <div className='w-full h-2 my-1 bg-gray-300 rounded-md '>
-              <div className={(post.rating.rate <= 3)?'bg-red-500 h-full rounded-md':
+              <div className={(Product.inventory <= 3)?'bg-red-500 h-full rounded-md':
               'bg-yellow-400 h-full rounded-md'}
-              style={{'width':calculeWidth(post.rating.count,post.rating.rate)+'%'  }}></div>
+              style={{'width':calculeWidth(Product.inventory,Product.inventory)+'%'  }}></div>
              </div>
              </div>
              <h3 className='mb-2 '>options disponibles</h3>
@@ -66,7 +68,7 @@ return (
              </div>
              <div className='m-2 '>
                  </div>
-            </div >
+            </Link>
             
            ))}
           </div>

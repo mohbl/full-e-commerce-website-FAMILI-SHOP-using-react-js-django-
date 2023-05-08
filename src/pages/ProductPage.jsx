@@ -14,7 +14,7 @@ const ProductPage = () => {
   const [percentage, setPercentage] = useState(0);
  const [comment, setComment] = useState('');
  const {id} = useParams();
-  const colors = ['red', 'green', 'blue', 'yellow'];
+  const colors = ['red', 'green', 'blue', 'yellow']; // get clors from the db it's just test
   const availableSizes = ['s', 'm', 'l', 'xl', 'xxl'];
   const productSizes = ['s', 'l', 'xxl']; // Example: Get the product sizes from your Django API
   
@@ -46,7 +46,19 @@ const ProductPage = () => {
 
 // handle the add to panier function 
 
+const handleAddToPanier = async () => {
+  try {
+    const response = await axios.post('https://familishop.onrender.com/carts/'+id);
 
+    if (response.status !== 200) {
+      throw new Error('Could not add product to basket');
+    }
+
+    alert('Product added to basket!');
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
 
 
@@ -188,7 +200,7 @@ const handleAddToFavorites = async () => {
            </div>
           <div>     
           </div>
-         <button className='bg-[#800B8D] h-[46px]  flex justify-center items-center hover:bg-[#bf33cf]  hover:border-[#f07ffd] border-2 border-[#A63041] transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:bg-[#f07ffd] rounded font-semibold text-[13px] absolute bottom-[60px] right-3 w-[165px] '>
+         <button onClick={handleAddToPanier} className='bg-[#800B8D] h-[46px]  flex justify-center items-center hover:bg-[#bf33cf]  hover:border-[#f07ffd] border-2 border-[#A63041] transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:bg-[#f07ffd] rounded font-semibold text-[13px] absolute bottom-[60px] right-3 w-[165px] '>
              <span className="text-white">AJOUTER AU PANIER</span>
              <FiShoppingCart size={20} className='text-white' />
              </button>

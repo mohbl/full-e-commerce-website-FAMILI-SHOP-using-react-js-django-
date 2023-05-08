@@ -2,8 +2,10 @@ import React from "react";
 import  { useState , useEffect} from "react"; 
 import { MdFavoriteBorder ,MdFavorite } from "react-icons/md";
 import {Link} from "react-router-dom";
+import axios from 'axios';
+
 const Offresspéciales = () => {
-  
+  const [products, setProducts] = useState([]);
   const [list, setList] = useState([]);
 
   const handleAddfavoris = (i) => {
@@ -28,19 +30,21 @@ const Offresspéciales = () => {
 
   
   
-  const [posts, setPosts] = useState([]);
-    useEffect(() => {
-       fetch('https://fakestoreapi.com/products?limit=5')
-          .then((response) => response.json())
-          .then((data) => {
-             console.log(data);
-             setPosts(data);
+      
+      useEffect(() => {
+        axios.get('https://familishop.onrender.com/products/')
+          .then((response) => {
+            console.log(response.data);
+            const shuffledProducts = response.data.sort(() => 0.5 - Math.random());
+          const randomProducts = shuffledProducts.slice(0, 5); // Only take the first 2 random products
+            setProducts(randomProducts);
           })
-          .catch((err) => {
-             console.log(err.message);
+          .catch((error) => {
+            console.log(error.message);
           });
-    }, []);
-console.log(posts) 
+      }, []);
+
+
 return (
    // ... consume here
    <div className= " PageContainer"> 
@@ -53,11 +57,11 @@ return (
         <Link to='Offre Speciale'> <h1 className="cursor-pointer text-[#800B8D] border-b-2 border-[#A078BC] ">  Voir Tous  </h1> </Link>
           </div>
           <div className='grid grid-cols-1 m-2  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2'>
-           {posts.map((post)=>(
-            <div key={post.id} className=' relative text-black  m-2   bg-[#F8F8F8]      ' > 
+           {products.map((Product)=>(
+            <Link key={Product.id} className=' relative text-black  m-2   bg-[#F8F8F8]      ' to={'/Product/'+Product.id} > 
               <div className="  flex justify-center items-center  h-[200px] ">
              
-             <img src={post.image} className='h-[110px] w-[110px] '/>
+             <img src={Product.image} className='h-[110px] w-[110px] '/>
              
              </div>
              
@@ -65,25 +69,25 @@ return (
              
              
              <div className='flex items-center justify-between '> 
-             <p className='mx-2 text-sm text-black '> {post.category} </p>    
+             <p className='mx-2 text-sm text-black '> {Product.title} </p>    
                <div className="mx-2">
-                    <MdFavoriteBorder  onClick={()=> handleAddfavoris(post)   }
-                          size={22} className={    list.includes(post)    ?'  hidden     ' :' fill-[#000000] '} />
-                    <MdFavorite  onClick={()=> handleRemovefavoris(post)    }
-                          size={22} className={    list.includes(post)    ?' fill-red-500     ' :' hidden '} />                </div>
+                    <MdFavoriteBorder  onClick={()=> handleAddfavoris(Product)   }
+                          size={22} className={    list.includes(Product)    ?'  hidden     ' :' fill-[#000000] '} />
+                    <MdFavorite  onClick={()=> handleRemovefavoris(Product)    }
+                          size={22} className={    list.includes(Product)    ?' fill-red-500     ' :' hidden '} />                </div>
               
               </div>
              <div className='flex items-center justify-start my-1 '> 
             
-             <p className='text-[#8A8888] text-sm line-through mx-1 '> {post.price} DA </p>
-             <p className='mx-1 text-sm font-bold '> {post.price} DA </p>
+             <p className='text-[#8A8888] text-sm line-through mx-1 '> {Product.unit_price} DA </p>
+             <p className='mx-1 text-sm font-bold '> {Product.price} DA </p>
             </div>
              <div className='m-2 '>
                  </div>
            <div className="absolute top-3 right-3 text-[#E50014] bg-[#E50014]/10 rounded-sm ">
-            <p className="">  -{ post.price}%</p>
+            <p className="">  -{ Product.price}%</p>
             </div>
-            </div >
+            </Link >
             
            ))}
           </div>

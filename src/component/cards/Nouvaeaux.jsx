@@ -36,7 +36,9 @@ const Nouveaux = () => {
    axios.get('https://familishop.onrender.com/products/')
      .then((response) => {
        console.log(response.data);
-       setProducts(response.data);
+       const shuffledProducts = response.data.sort(() => 0.5 - Math.random());
+       const randomProducts = shuffledProducts.slice(0, 5); // Only take the first 2 random products
+         setProducts(randomProducts);
      })
      .catch((error) => {
        console.log(error.message);

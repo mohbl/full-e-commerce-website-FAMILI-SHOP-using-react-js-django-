@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSpring, animated } from 'react-spring';
+import hoho from "../component/assets/Group 348.svg"
 
 import gift2 from '../component/cards/assetsCards/Group 293.png';
 import cadeau from '../component/assets/Group 326.png'
@@ -105,7 +106,23 @@ const PageCarteCadeau = () => {
         </div>
     </div>
     <p className='mx-1 text-xl tracking-wide mt-14'>Si vous cherchez un moyen simple et efficace de faire des achats tout en profitant de récompenses, alors la carte cadeau et les points de fidélité sont des options à considérer. En connectant simplement à votre compte, vous pouvez facilement activer l'option de carte cadeau et commencer à acheter des produits. Chaque produit acheté est associé à un certain nombre de points, qui sont ensuite accumulés sur votre compte. En cumulant ces points, vous pouvez échanger vos récompenses pour des produits supplémentaires ou des offres spéciales. C'est une solution idéale pour les clients réguliers, car cela leur permet de profiter de récompenses pour leur fidélité tout en faisant des achats quotidiens. Alors, ne manquez pas cette opportunité de gagner des points et d'obtenir des récompenses pour vos achats!</p>
-    <div className='mx-2 h-[189px] bg-[#D0B4FF] mt-[140px] flex text-white'>
+    <div className='relative mt-10'>
+      <img src={hoho} alt="" className='mx-auto' />
+      <h1 className='absolute text-3xl font-semibold tracking-widest bottom-14 left-[470px] '>Et tous ces points <br />vous donnent accès <br /><span className='text-[#FBEB08]'>à des cadeaux </span>!</h1>
+      
+    </div>
+    <a className="ml-[450px] inline-block py-2 font-semibold px-6 w-[295px] text-center ml-4 mt-[24px] border border-[#800B8D] text-white hover:text-[#800B8D] bg-[#800B8D] hover:bg-white transition-all duration-300 hover:shadow-md hover:scale-105 mb-28" href="#"> Voir les cadeaux disponibles</a>
+
+   </div>
+    </div>
+   </div>
+   
+  )
+}
+
+export default PageCarteCadeau
+
+{/*  <div className='mx-2 h-[189px] bg-[#D0B4FF] mt-[140px] flex text-white'>
         
         <div className='text-[45px] mx-auto my-auto font-light tracking-wide'>
             <h1 className='racking-wide'>Comment <span className='font-semibold '>acheter avec vos points</span> sur</h1>
@@ -127,12 +144,4 @@ const PageCarteCadeau = () => {
             <p className='text-lg text-center'>Votre confirmation de commande affichera le nombre de points utilisés, déduit du total d’achat.</p>
         </div>
         
-    </div>
-   </div>
-    </div>
-   </div>
-   
-  )
-}
-
-export default PageCarteCadeau
+    </div>*/}

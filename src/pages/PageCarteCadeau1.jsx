@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSpring, animated } from 'react-spring';
+import hoho from "../component/assets/Group 348.svg"
 
 import gift2 from '../component/cards/assetsCards/Group 293.png';
 import cadeau from '../component/assets/Group 326.png'
@@ -113,21 +114,13 @@ const PageCarteCadeau1 = () => {
         </div>
         <img src={cadeau} alt="" className='mr-[79px]' />
     </div>
-    <div className='flex mt-[48px] space-x-20 mb-[303px] mx-10'>
-        <div>
-            <h1 className='text-xl font-bold text-center'>1. Découvrez des articles</h1>
-            <p className='text-lg text-center'>Ajoutez des articles éligibles à votre panier sur FamiliShop.com et validez votre panier.</p>
-        </div>
-        <div>
-            <h1 className='text-xl font-bold text-center'>2. Utilisez vos points</h1>
-            <p className='text-lg text-center'>Sélectionnez votre Carte cadeaux au moment de la commande. Ensuite, choisissez le nombre de points que vous souhaitez appliquer à votre achat.</p>
-        </div>
-        <div>
-            <h1 className='text-xl font-bold text-center'>3. Finalisez votre commande</h1>
-            <p className='text-lg text-center'>Votre confirmation de commande affichera le nombre de points utilisés, déduit du total d’achat.</p>
-        </div>
-        
+    <div className='relative mt-10'>
+      <img src={hoho} alt="" className='mx-auto' />
+      <h1 className='absolute text-3xl font-semibold tracking-widest bottom-14 left-[470px] '>Et tous ces points <br />vous donnent accès <br /><span className='text-[#FBEB08]'>à des cadeaux </span>!</h1>
+      
     </div>
+    <a className="ml-[450px] inline-block py-2 font-semibold px-6 w-[295px] text-center ml-4 mt-[24px] border border-[#800B8D] text-white hover:text-[#800B8D] bg-[#800B8D] hover:bg-white transition-all duration-300 hover:shadow-md hover:scale-105 mb-28" href="#"> Voir les cadeaux disponibles</a>
+
    </div>
     </div>
    </div>

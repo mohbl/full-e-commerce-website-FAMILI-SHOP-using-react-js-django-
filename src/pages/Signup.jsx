@@ -7,7 +7,7 @@ const [login , setlogin]=useState(false)
 
   
   return (
-    <div name='Login' className='PageContainer bg-white'>
+    <div name='Login' className={ login ? 'PageContainer bg-white h-full ' :' PageContainer bg-white'}>
       <div className='flex items-center justify-center '>
         <img src={Logo} alt="" className='w-[100px] h-[50px] my-2  ' />
       </div>
@@ -17,12 +17,12 @@ const [login , setlogin]=useState(false)
       </div>
      
      
-     <div className='relative flex items-center justify-center '>
+     <div className='relative flex items-center justify-center  '>
       
        {/* S’inscrire */}
       <form className={ login ? ' hidden absolute right-[-100%]': 'flex  justify-center items-center  '  }>
         <ul className= 'mt-4' >
-          <li className='mt-5 border-2 '> <input type="text" className='h-[53px] w-[402px] p-2' placeholder='Nom'/></li>
+          <li className='mt-5 border-2 '> <input type="text" className='h-[53px] w-[402px] p-2 ' placeholder='Nom'/></li>
           <li className='mt-5 border-2 '> <input type="text" className='h-[53px] w-[402px] p-2' placeholder='Prenom'/></li>
           <li className='mt-5 border-2 '> <input type="text" className='h-[53px] w-[402px] p-2' placeholder='Adresse e-mail ou numéro de téléphone portable'/></li>
           <li className='mt-5 border-2 '> <input type="password" className='h-[53px] w-[402px] p-2' placeholder='Mot de pass'/></li>
@@ -32,13 +32,13 @@ const [login , setlogin]=useState(false)
       <form className= { login ?  ' flex justify-center items-center  duration-500 ease-in-out ' :' hidden absolute left-[-100%]' }>
         <ul className='mt-4'>
           <li className='mt-5 border-2 '> <input type="text" className='h-[53px] w-[402px] p-2' placeholder='Adresse e-mail ou numéro de téléphone portable'/></li>
-          <li className='mt-5 border-2 '> <input type="password" className='h-[53px] w-[402px] p-2' placeholder='Mot de pass'/></li>
+          <li className='mt-5 border-2   '> <input type="password" className='h-[53px] w-[402px] p-2 ' placeholder='Mot de pass'/></li>
         </ul>
       </form>
   
       </div>
-      <div className='flex items-center justify-center p-4 '>
-         <button className='h-[46px] w-[402px] bg-[#800B8D] text-white ' type='submit'>
+      <div className={ login  ? ' flex items-center justify-center p-4 relative ' :' flex items-center justify-center p-4'}>
+         <button className= 'h-[46px] w-[402px] bg-[#800B8D] text-white ' type='submit'>
           connexion
          </button>
       </div>

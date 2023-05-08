@@ -15,6 +15,11 @@ import Signup from "./pages/Signup";
 import PageCarteCadeau from "./pages/PageCarteCadeau";
 import Horaire from "./pages/Horaire";
 import Profile from "./pages/Profile";
+import Stocklimités from "./pages/Stocklimités";
+import Nouvelles from "./pages/Nouvelles";
+import Offresramadan from "./pages/Offresramadan";
+import Offrespeciale from "./pages/Offrespeciale";
+
  
 
 function App() {
@@ -35,6 +40,10 @@ function App() {
             <Route path="/Carte cadeau" element={<PageCarteCadeau/>} />
             <Route path="/Horaire" element={<Horaire/>} />
             < Route path="/Profile" element={<Profile/>} />
+            < Route path="/Stock limites" element={<Stocklimités/>} />
+             <Route  path="/Nouvelles" element ={<Nouvelles/>}/>
+              <Route path ='Offres Ramadan' element={<Offresramadan/>} />
+             <Route path="Offre Speciale" element={<Offrespeciale/>}/>
           </Routes>
       <Footer/>
      </Router>

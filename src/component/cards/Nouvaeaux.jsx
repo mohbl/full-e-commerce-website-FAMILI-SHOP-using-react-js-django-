@@ -1,7 +1,7 @@
 import React from "react"; 
 import  { useState , useEffect} from "react"; 
 import { MdFavoriteBorder ,MdFavorite } from "react-icons/md";
-
+import { Link } from "react-router-dom";
 const Nouveaux = () => {
   
   const [list, setList] = useState([]);
@@ -50,7 +50,8 @@ return (
      <div className="p-2   bg-[#ffffff] shadow-lg ">
         <div className='flex justify-between '>
           <h1 className='text-black font-semibold border-b-2 border-[#A078BC]'> Nouvelles Arrivées </h1>
-          </div>
+          <Link to='Nouvelles'> <h1 className="cursor-pointer text-[#800B8D] border-b-2 border-[#A078BC] ">  Voir Tous  </h1> </Link>
+            </div>
           <div className='grid grid-cols-1 m-2  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2'>
            {posts.map((post)=>(
             <div key={post.id} className='text-black  m-2   bg-[#F8F8F8] relative      ' > 

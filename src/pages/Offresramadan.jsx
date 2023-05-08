@@ -2,7 +2,8 @@ import React from "react";
 import  { useState , useEffect} from "react"; 
 import { MdFavoriteBorder ,MdFavorite } from "react-icons/md";
 import {Link} from "react-router-dom";
-const OffresRamadan = () => {
+import OffresRamadan from '../component/assets/Rectangle131.png'
+const Offresramadan = () => {
   
   const [list, setList] = useState([]);
 
@@ -30,7 +31,7 @@ const OffresRamadan = () => {
   
   const [posts, setPosts] = useState([]);
     useEffect(() => {
-       fetch('https://fakestoreapi.com/products?limit=5')
+       fetch('https://fakestoreapi.com/products')
           .then((response) => response.json())
           .then((data) => {
              console.log(data);
@@ -48,9 +49,13 @@ return (
   {/* Offresspéciales */}
   <div className=' bg-[#ffffff] p-4 my-3     '>
      <div className="p-2   bg-[#ffffff] shadow-lg ">
-        <div className='flex justify-between '>
-          <h1 className='text-black font-semibold border-b-2 border-[#A078BC]'> Meilleures Offres Ramadan </h1>
-        <Link to='Offres Ramadan'> <h1 className="cursor-pointer text-[#800B8D] border-b-2 border-[#A078BC] ">  Voir Tous  </h1> </Link>
+         
+         <div>
+            <img src={OffresRamadan} alt="" />
+         </div>
+          
+          <div className="flex ">
+          <h1 className='text-black font-bold border-b-2 border-[#A078BC]'> Meilleures Offres Ramadan</h1>
           </div>
           <div className='grid grid-cols-1 m-2  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2'>
            {posts.map((post)=>(
@@ -95,5 +100,7 @@ return (
     
    ) ;
 };
-export default OffresRamadan 
+export default Offresramadan 
+
+
 

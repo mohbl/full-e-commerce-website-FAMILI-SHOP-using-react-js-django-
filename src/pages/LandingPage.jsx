@@ -21,7 +21,6 @@ const LandingPage = () => {
    <Offresspéciales/>
    <Nouvaeaux/>
    <Hightech/>
-    
    <Hightech1/>
    <OffresRamadan/>
    <Plusdemandés/>

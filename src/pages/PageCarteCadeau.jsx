@@ -93,7 +93,7 @@ const PageCarteCadeau = () => {
 "Vous méritez le meilleur, c'est pourquoi nous vous offrons la chance d'accumuler des points et de les échanger contre des produits exceptionnels. Alors, n'attendez plus et commencez à faire du shopping chez nous dès maintenant pour profiter de cette offre exclusive!"
 </p>
 <div>
-    <p className='text-xl'> <span className='font-bold'>100 points de FamiliShop</span> valent <span className='font-bold'>1000 DA</span> que vous pouvez utiliser afin de régler vos achats éligibles sur FamiliShop.com</p>
+    <p className='text-xl'> <span className='font-bold'>1 point de FamiliShop</span> valent <span className='font-bold'>100 DA</span> que vous pouvez utiliser afin de régler vos achats éligibles sur FamiliShop.com</p>
     <a className="inline-block py-2 font-semibold px-6 w-[330px] text-center ml-4 mt-[24px] border border-[#800B8D] text-[#800B8D] hover:text-white hover:bg-[#800B8D] transition-all duration-300 hover:shadow-md hover:scale-105" href="#"> Consulter votre solde de points</a>
 
 </div>

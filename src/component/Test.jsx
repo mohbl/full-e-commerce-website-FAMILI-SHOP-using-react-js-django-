@@ -20,17 +20,49 @@ import ImageSlider from '../component/ImageSlider'
 
 const Categories = () => {
   const [showVetement, setShowVetement] = useState(false);
-  
+  const [showBeaute, setShowBeaute] = useState(false);
+  const [showBebe, setShowBebe] = useState(false);
+  const [showElectro, setShowElectro] = useState(false);
+  const [showAccesoire, setShowAccesoire] = useState(false);
+
+
+
  
   
   const handleVetementHover = () => {
     setShowVetement(true);
   };
-
   const handleVetementLeave = () => {
     setShowVetement(false);
   };
-  
+  //
+  const handleBeauteHover = () => {
+    setShowBeaute(true);
+  };
+  const handleBeauteLeave = () => {
+    setShowBeaute(false);
+  };
+  //
+  const handleElectroHover = () => {
+    setShowElectro(true);
+  };
+  const handleElectroLeave = () => {
+    setShowElectro(false);
+  };
+ //
+  const handleBebeHover = () => {
+    setShowBebe(true);
+  };
+  const handleBebeLeave = () => {
+    setShowBebe(false);
+  };
+  //
+  const handleAccessoireHover = () => {
+    setShowAccesoire(true);
+  };
+  const handleAccessoireLeave = () => {
+    setShowAccesoire(false);
+  };
  
  
     
@@ -59,11 +91,11 @@ const Categories = () => {
          <GiSleevelessJacket size={25} className='mr-4'/>
           Vetement
         </li>
-        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <GiHealthPotion size={25} className='mr-4' /> Beauté & Santé </li>
-        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <BiChild size={25} className='mr-4' /> Bébé </li>
-        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <GiHeartNecklace size={25} className='mr-4' /> Accessoires </li>
-        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <GiWashingMachine size={25} className='mr-4' /> Electroménagers </li>
-        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <FaShoppingBasket size={25} className='mr-4' /> Supermarché </li>
+        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4' onMouseEnter={handleBeauteHover} onMouseLeave={handleBeauteLeave}> <GiHealthPotion size={25} className='mr-4' /> Beauté & Santé </li>
+        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4' onMouseEnter={handleBebeHover} onMouseLeave={handleBebeLeave}> <BiChild size={25} className='mr-4' /> Bébé </li>
+        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4' onMouseEnter={handleAccessoireHover} onMouseLeave={handleAccessoireLeave}> <GiHeartNecklace size={25} className='mr-4' /> Accessoires </li>
+        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4' onMouseEnter={handleElectroHover} onMouseLeave={handleElectroLeave}> <GiWashingMachine size={25} className='mr-4' /> Electroménagers </li>
+        <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4' > <FaShoppingBasket size={25} className='mr-4' /> Supermarché </li>
         <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <TbToolsKitchen2 size={25} className='mr-4' /> Cuisine </li>
         <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <TbShirtSport size={25} className='mr-4' /> Articles de sport </li>
         <li className='flex text-xl py-2 cursor-pointer hover:text-[#800B8D] pl-4'> <AiTwotoneHome size={25} className='mr-4' /> Meuble </li>
@@ -94,39 +126,36 @@ const Categories = () => {
         >
           <div className="flex text-[#8A8888] text-start justify-evenly w-[940px]">
             <ul className="">
-            <h1  className='text-black border-b-2 border-[#D9D9D9] text-md font-bold my-2 '> Vêtements Femmes</h1>
+            <h1  className=' text-lg  border-[#D9D9D9]  font-bold my-2 cursor-pointer text-[#000000] '> Vêtements Femmes</h1>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>T shirts</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Blouses & chemises</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Tops</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Pulls & Sweatshirts</li>
-                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Pantalons & Shorts</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Pantalons </li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Jupes & Robes</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Hijab & Foulard</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Vests & Manteaux</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Combinaisons</li>
-                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Sous vêtements</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chaussures</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chaussettes</li>
             </ul>
             <ul className="">
-            <h1  className=' text-black border-b-2 border-[#D9D9D9] text-md font-bold my-2'> Vêtements Hommes</h1>
+            <h1  className='   border-[#D9D9D9] text-lg font-bold my-2 cursor-pointer text-[#000000] '> Vêtements Hommes</h1>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>T shirts</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chemises & Polos</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Pulls & Sweatshirts</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Pantalons & Shorts</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Vests & Manteaux</li>
-                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Sous vêtements</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chaussures</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chaussettes</li>
             </ul>
             <ul className="pr-[50px]">
-            <h1  className=' text-black border-b-2 border-[#D9D9D9] text-md font-bold my-2'> Vêtements Enfants</h1>
+            <h1  className='  border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000] '> Vêtements Enfants</h1>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>T shirts</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chemises & Polos</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Pulls & Sweatshirts</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Pantalons & Shorts</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Vests & Manteaux</li>
-                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Sous vêtements</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chaussures</li>
                      <li className='my-2 hover:text-[#000000] cursor-pointer'>Chaussettes</li>
             </ul>
@@ -136,6 +165,148 @@ const Categories = () => {
         
       )}
       
+      {showBeaute && (
+        <div className="bg-white mt-[46px] border absolute top-0 left-1 h-[433px]" 
+        onMouseEnter={handleBeauteHover}
+        onMouseLeave={handleBeauteLeave}
+        >
+          <div className="flex text-[#8A8888] text-start justify-evenly w-[940px]">
+            <ul className="">
+            <h1  className=' border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000] '> Parfums</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Prfums femme</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Parfums homme</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Déodorants</li>
+                    
+            </ul>
+            <ul className="">
+            <h1  className='  border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]'> Soins & Maquillage</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Soins du visage</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Soins de cheveux</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Soins de corp</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Maquillage visage</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Maquillage yeux</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Maquillage Lèvres</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Vernis à Ongles</li>
+            </ul>
+            <ul className="pr-[50px]">
+            <h1  className='  border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]'> Santé</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Equipement médicale</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Massage et relaxation</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Appareils</li>
+                    
+            </ul>
+          </div>
+        
+        </div>
+        
+      )}
+      {showBebe && (
+        <div className="bg-white mt-[46px] border absolute top-0 left-1 h-[433px]" 
+        onMouseEnter={handleBebeHover}
+        onMouseLeave={handleBebeLeave}
+        >
+          <div className="flex text-[#8A8888] text-start justify-evenly w-[940px]">
+            <ul className="">
+            <h1  className=' border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]'> Alimentation Bébé</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Nouriture pour Bébé</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Biberons</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Sucettes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Bavoirs et chiffrons</li>
+                     
+            </ul>
+            <ul className="">
+            <h1  className='  border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]'> Accessoires Bébé</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Poussettes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>CSiège auto</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Jouets Bébé</li>
+                    
+            </ul>
+            <ul className="pr-[50px]">
+            <h1  className='  border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]'> Soin Bébé</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Couches</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Lingettes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Matelas à langer</li>
+                    
+            </ul>
+          </div>
+        
+        </div>
+        
+      )}
+      {showElectro && (
+        <div className="bg-white mt-[46px] border absolute top-0 left-1 h-[433px]" 
+        onMouseEnter={handleElectroHover}
+        onMouseLeave={handleElectroLeave}
+        >
+          <div className="flex text-[#8A8888] text-start justify-evenly w-[940px]">
+            <ul className="">
+            <h1  className=' border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]  '> Petit électroménager</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>pain</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Mixeur </li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Fer à repasser</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Préparation du café</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Aspirateur</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Cuit vapeur</li>
+                    
+            </ul>
+            <ul className="">
+            <h1  className='  border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]'> Gros électroménager</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Cuisinière</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Plaque de cuisson</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Réfrigérateur</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Climatiseur</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Lave-vaisselle</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Lave-linge</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Hotte aspirante</li>
+            </ul>
+            <ul className="pr-[50px]">
+            <h1  className='  border-[#D9D9D9] text-md font-bold my-2 text-lg cursor-pointer text-[#000000]'> High Tech</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>TV</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Accessoires High Tech </li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Sécurité et surveillance</li>
+                    
+            </ul>
+          </div>
+        
+        </div>
+        
+      )}
+      {showAccesoire && (
+        <div className="bg-white mt-[46px] border absolute top-0 left-1 h-[433px]" 
+        onMouseEnter={handleAccessoireHover}
+        onMouseLeave={handleAccessoireLeave}
+        >
+          <div className="flex text-[#8A8888] text-start justify-evenly w-[940px]">
+            <ul className="">
+            <h1  className=' text-lg font-bold my-2 cursor-pointer text-[#000000]  '> Accessoires Femmes</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Sacs à main</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Lunettes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Tops</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Chapeaux & casquettes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Montres</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Ceintures</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Bijoux</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Echarpes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Accessoires des cheveux</li>
+                     
+            </ul>
+            <ul className="">
+            <h1  className='  text-lg font-bold my-2 cursor-pointer text-[#000000] '> Accessoires Hommes</h1>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Cravates </li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Lunettes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Chapeaux & casquettes</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Montres</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Ceintures</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Bijoux</li>
+                     <li className='my-2 hover:text-[#000000] cursor-pointer'>Echarpes</li>
+            </ul>
+            
+          </div>
+        
+        </div>
+        
+      )}
+     
       
       
       

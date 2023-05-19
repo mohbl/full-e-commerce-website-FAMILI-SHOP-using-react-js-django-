@@ -7,24 +7,34 @@ import { Hightech } from '../component/cards/Hightech'
 import Stocklimite from '../component/cards/Stocklimite'
 import Nouvaeaux from '../component/cards/Nouvaeaux'
 import Offresspéciales from '../component/cards/Offresspéciales'
+
 import { MagazinClub } from './MagazinClub'
 import MagazinClubCard from '../component/cards/MagazinClubCard'
+
+import Hightech1 from '../component/cards/Hightech1'
+import OffresRamadan from '../component/cards/OffresRamadan'
+import Plusdemandés from '../component/cards/Plusdemandés'
+import Vurécemment from '../component/cards/Vurécemment'
+import Navbar from '../component/Navbar'
+
 const LandingPage = () => {
   return (
     <>
-  <Test/>
-   <AdsCarte/>
+   <Test/>
+   <div className="min-h-screen overflow-y-scroll scroll-container">
+    <AdsCarte/>
    <MagazinClubCard/>
    <Stocklimite/>
    <CarteCadeau/>
-   <Offresspéciales/>
-   <Nouvaeaux/>
+   <Offresspéciales id="offresspéciales"/>
+   <Nouvaeaux id="nouvaeaux"/>
    <Hightech/>
-   <div className=' PageContainer h-[800px] flex justify-center text-center bg-white mt-6 pt-52'>
-   </div>
+   <Vurécemment/>
+   <Plusdemandés/> 
+   <Nouvaeaux/>
    <AppStore/>
-   
-   
+   </div>
+  
     </>
   )
 }

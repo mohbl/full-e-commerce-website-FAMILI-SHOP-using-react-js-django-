@@ -11,18 +11,18 @@ const PanierCard = ({ productId }) => {
 
 
   //fetch the date from db 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(`/api/products/${productId}/`);
-        const data = await response.json();
-        setProduct(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchProduct();
-  }, [productId]);
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     try {
+  //       const response = await fetch(`/api/products/${productId}/`);
+  //       const data = await response.json();
+  //       setProduct(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchProduct();
+  // }, [productId]);
 
 
   //handle the quantity change 

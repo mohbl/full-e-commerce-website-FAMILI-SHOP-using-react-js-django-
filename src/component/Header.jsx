@@ -3,14 +3,18 @@ import {BiMap} from 'react-icons/bi'
 import logo from './assets/logo.png'
 import {FaSearch} from 'react-icons/fa'
 import user from './assets/user.svg'
+import {AiOutlineClose} from 'react-icons/ai'
 import heart from './assets/heart.svg'
 import shoppingBag from './assets/shopping-cart.svg'
 import { Link , NavLink } from 'react-router-dom';
 import react from '@heroicons/react';
 import { icons } from 'feather-icons';
+import Signup from "../pages/Signup";
+
 
 function Header() {
   const [isFixed, setIsFixed] = useState(false);
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.pageYOffset > 0) {
@@ -28,7 +32,15 @@ function Header() {
   }, []);
 
 
-  return (
+ const [login , setlogin]=useState(false);  
+const gotologin=()=>{
+setlogin(true) ;
+}
+const closelogin=()=>{
+  setlogin(false) ;
+  }
+  
+return (
     
     
       <div className={`PageContainer ${isFixed ? 'fixed top-0 w-full z-50 bg-white shadow-lg ' : ''}`}>
@@ -65,13 +77,13 @@ function Header() {
     <div>
       <img src={user} alt="" />
     </div>
-    <Link className='pl-[4px] hover:text-[#800B8D] transition delay-100 duration-150' to='Signup&Login'>compte</Link>
+    <Link className='pl-[4px] hover:text-[#800B8D] transition delay-100 duration-150'  onClick={gotologin}>compte</Link>
   </div>
   <div className='flex items-center pl-[20px]'>
     <div>
       <img src={heart} alt="" />
     </div>
-     <Link className='pl-[4px] hover:text-[#800B8D] transition delay-100 duration-150 ' to='Mes faoris' >Mes favoris</Link>
+     <Link className='pl-[4px] hover:text-[#800B8D] transition delay-100 duration-150 ' to='/mes-favoris' >Mes favoris</Link>
   </div>
   <div className='flex items-center pl-[20px]'>
     <div>
@@ -83,9 +95,18 @@ function Header() {
 </div>
   
  </div>
- 
+      
+  {  login  ? <div className=   'fixed top-0 left-0 z-10 w-full h-full overflow-y-auto bg-gray-900/90 '>
+        <div  className=' relative  m-auto top-0 left-0  w-[60%] h-full z-10'>
+        <AiOutlineClose className='absolute cursor-pointer top-8 right-20 ' onClick={closelogin}  />
+        <Signup />  
+        </div>
+       
+         
+       </div> : ''  }
+
       </div>
-    
+       
   );
 }
 

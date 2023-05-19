@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import {BiMap} from 'react-icons/bi'
 import logo from './assets/logo.png'
@@ -15,15 +15,18 @@ import {IoIosPeople} from 'react-icons/io'
 import {BsPersonFillUp} from 'react-icons/bs'
 import NotificationCard from './cards/NotificationCard';
 import {RiUserReceived2Line} from 'react-icons/ri'
+import AuthContext from '../context/AuthContext';
 
 
 
 function UserHeader() {
+  const {logoutUser} = useContext(AuthContext)
+
   const [isFixed, setIsFixed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [notifications, setNotifications] = useState([]);
-
+ const { user } = useContext(AuthContext)
   useEffect(() => {
     axios.get('http://localhost:3000/notifications')
       .then(response => setNotifications(response.data))
@@ -96,7 +99,7 @@ function UserHeader() {
         onClick={handleDropdownClick}
       >
         <AiOutlineUser size={25} />
-        <h1>Bonjour,Maroua</h1>
+        <h1>Bonjour, {user?.first_name || "User"}</h1>
         {isOpen ? (
           <FaChevronUp className="pt-1" size={16} />
         ) : (
@@ -108,19 +111,19 @@ function UserHeader() {
           <ul>
             <li className="flex items-center py-3 pl-[18px] space-x-1 cursor-pointer hover:text-black">
               <BsPersonFillUp size={22} />
-              <span className='pl-3'>Mon compte</span>
+            <Link to='Profile'><span className='pl-3' to='Profile'>Mon compte</span></Link>    
             </li>
             <li className="flex items-center py-3 pl-[18px] space-x-1 cursor-pointer hover:text-black">
               <GiConfirmed size={22}  />
-         <Link to="Mes commande"><span className='pl-3 text-md'>Mes commandes</span></Link>     
+             <Link to="Mes commande"><span className='pl-3 text-md'>Mes commandes</span></Link>     
             </li>
             <li className="flex items-center py-3 pl-[18px] space-x-1 cursor-pointer hover:text-black ">
               <IoIosPeople size={22}  />
-              <span className='pl-3'>Magasin club</span>
+              <Link className='pl-3' to='Magazin-club'>Magasin club</Link>
             </li>
             <li className="flex items-center justify-center py-3 cursor-pointer text-xl text-center text-[#800B8D] font-semibold border-t-2 hover:font-bold  ">
               
-              <span className='text-center'>Déconnexion</span>
+              <span className='text-center' onClick={logoutUser}>Déconnexion</span>
             </li>
           </ul>
         </div>
@@ -171,7 +174,7 @@ function UserHeader() {
       )}
     </div>
   <div className='flex items-center pl-[20px] hover:text-[#800B8D] transition delay-100 duration-150'>
-  <Link to='Mes faoris' ><AiOutlineHeart size={25} /> </Link>
+  <Link to='mes-favoris' ><AiOutlineHeart size={25} /> </Link>
   </div>
   <div className='flex items-center pl-[20px] hover:text-[#800B8D] transition delay-100 duration-150 '>
     

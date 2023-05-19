@@ -1,53 +1,126 @@
 import React from "react"; 
-import  { useState , useEffect} from "react"; 
+import  { useState , useEffect , useContext} from "react"; 
 import { MdFavoriteBorder ,MdFavorite } from "react-icons/md";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from 'axios';
+import { FaRegHeart, FaHeart , FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import coupon from '../assets/—Pngtree—red coupon 10 off_6376552 1.png'
+import AuthContext from '../../context/AuthContext'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Offresspéciales = () => {
+  const { user, authTokens } = useContext(AuthContext);
+
   const [products, setProducts] = useState([]);
-  const [list, setList] = useState([]);
-
-  const handleAddfavoris = (i) => {
-      let items =[...list, i]
-    // list.push(i)
-      setList(items);
-    console.log(items)
-  };
-
-  const handleRemovefavoris = (i) => {
-    
-       
-         // const lastIndex = items.length - 1;
-
-        // items.splice(list.indexOf(i),1)
-       let  items=list.filter(t=>t.id!==i.id )  
-        setList(items)
-      
+  const [isFavorited, setIsFavorited] = useState(false);
+  // handle the add/delete to/from favorite list function
  
-      console.log(items) };
+  const handleAddToFavorites = (i) => {
 
-
+    return async () => {
+      try {
+        if (user) {
+          // User is authenticated, make a POST request to the Django API
+          
+    
+          const headers = {
+            "Authorization": `Bearer ${authTokens}`,
+            "Content-Type": "application/json",
+          };
   
+          const requestData = {
+           'product' : products[i].id,
+           'user': user.id,
+          };
+
+          let response = null;
+          
+          console.log('authenticated')
+          if(!products.at(i).isFavorited) {
+            console.log('not in favorites')
+            response = await axios.post(
+              "https://familishop.onrender.com/favorites/",
+              requestData,
+              { headers }
+            );
+            console.log(response);
+          } else {
+            console.log('in favorites')
+            response = await axios.delete(
+              "https://familishop.onrender.com/favorites_remove/"+products.at(i).id ,
+              { headers }
+            );
+            console.log(response);
+          }
+
+          const newProducts = [...products];
+          newProducts.at(i).isFavorited = !newProducts.at(i).isFavorited;
+          setProducts(newProducts);
+        } else {
+          // User is not authenticated, store the favorite in session storage
+          const favorites = JSON.parse(sessionStorage.getItem('favorites')) || [];
+          const existingIndex = favorites.findIndex((fav) => fav.id === products.at(i).id);
+
+          if (existingIndex !== -1) {
+            // Product already exists in favorites, remove it
+            favorites.splice(existingIndex, 1);
+            setIsFavorited(false);
+            alert('Product removed from favorites!');
+          } else {
+            // Product does not exist in favorites, add it
+            favorites.push(products.at(i));
+            setIsFavorited(true);
+            alert('Product added to favorites!');
+          }
+
+          sessionStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+        products.at(i).isFavorited = true
+      } catch (error) {
+        console.log(error)
+        alert(error.message);
+      }
+    }
+  };
+     const [hoveredProductId, setHoveredProductId] = useState(null);
+
+     const handleMouseEnter = (productId) => {
+       setHoveredProductId(productId);
+     };
+   
+     const handleMouseLeave = () => {
+       setHoveredProductId(null);
+     };
+
   
       
-      useEffect(() => {
-        axios.get('https://familishop.onrender.com/products/')
-          .then((response) => {
-            console.log(response.data);
-            const shuffledProducts = response.data.sort(() => 0.5 - Math.random());
-          const randomProducts = shuffledProducts.slice(0, 5); // Only take the first 2 random products
-            setProducts(randomProducts);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      }, []);
+     useEffect(() => {
+      (async () => { 
+        const response = await axios.get('https://familishop.onrender.com/products/');
+        console.log(response.data);
+        const shuffledProducts = response.data.sort(() => 0.5 - Math.random());
+        const randomProducts = shuffledProducts.slice(0, 5); // Only take the first 2 random products
+        const favorites = await axios.get('https://familishop.onrender.com/favorites/', {
+          headers: {
+            Authorization: 'Bearer '+authTokens
+          }
+        })
+        .then(response => response.data);
+        console.log('favorites ',favorites)
+        setProducts(randomProducts.map(p => {
+          const i = favorites.findIndex(v => v.product === p.id)
+          p.isFavorited = i !== -1
+          if(i !== -1) p.idFavorite = favorites.at(i).id;
+          return p
+        }));
+      })()
+    }, []);
 
 
 return (
    // ... consume here
-   <div className= " PageContainer"> 
+   <div className= " PageContainer" id="offresspéciales"> 
       
   {/* Offresspéciales */}
   <div className=' bg-[#ffffff] p-4 my-3     '>
@@ -56,40 +129,58 @@ return (
           <h1 className='text-black font-semibold border-b-2 border-[#A078BC]'> Offres spéciales </h1>
         <Link to='Offre Speciale'> <h1 className="cursor-pointer text-[#800B8D] border-b-2 border-[#A078BC] ">  Voir Tous  </h1> </Link>
           </div>
-          <div className='grid grid-cols-1 m-2  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2'>
-           {products.map((Product)=>(
-            <Link key={Product.id} className=' relative text-black  m-2   bg-[#F8F8F8]      ' to={'/Product/'+Product.id} > 
-              <div className="  flex justify-center items-center  h-[200px] ">
-             
-             <img src={Product.image} className='h-[110px] w-[110px] '/>
-             
-             </div>
-             
-             
+          <div className='grid grid-cols-1 m-2 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2'>
+          {products.map((product,i)=>(
+            <div className=' relative  m-2 border-2 rounded-lg cursor-pointer h-[340px] hover:shadow-lg '  key={product.id}  onMouseEnter={() => handleMouseEnter(product.id)}  onMouseLeave={handleMouseLeave} to={'/Product/'+product.id} >
+              <Link className=" w-[218px]  h-[250px] cursor-pointer " to={'/Product/'+product.id}>
+              <img
+                src={hoveredProductId === product.id ? product.image : product.image2} className="object-cover w-[210px] h-[250px]  " alt='' />
+
+              </Link>
              
              
-             <div className='flex items-center justify-between '> 
-             <p className='mx-2 text-sm text-black '> {Product.title} </p>    
-               <div className="mx-2">
-                    <MdFavoriteBorder  onClick={()=> handleAddfavoris(Product)   }
-                          size={22} className={    list.includes(Product)    ?'  hidden     ' :' fill-[#000000] '} />
-                    <MdFavorite  onClick={()=> handleRemovefavoris(Product)    }
-                          size={22} className={    list.includes(Product)    ?' fill-red-500     ' :' hidden '} />                </div>
+             <Link to={'/Product/'+product.id} className="cursor-pointer">
+             <p className='pl-3 mt-3 text-base font-bold '> {product.title}  </p>    
+             </Link>
+             
+             <div className='flex items-center justify-between mt-2'> 
+
+                <div className='flex items-center justify-start pl-2 '> 
+               <p className='mx-1 text-base font-bold '> {product.unit_price}DA </p> 
+               <p className='text-[#8A8888] text-sm line-through ml-2 '> {product.price}DA </p>
+                </div>
+
+                <div className="mx-2" >
+                    {product.isFavorited ? (
+                      
+                      <FaHeart className="text-red-500 cursor-pointer hover:text-[#E50014]" onClick={
+                        handleAddToFavorites(i)
+                      }  size={20} />
+                     
+                    ) : (
+                      <FaRegHeart className="text-gray-900 cursor-pointer hover:text-[#E50014]"  onClick={
+                        
+                        handleAddToFavorites(i)
+                      } size={20} />
+                      
+                    )}
+                  </div>
+              
               
               </div>
-             <div className='flex items-center justify-start my-1 '> 
-            
-             <p className='text-[#8A8888] text-sm line-through mx-1 '> {Product.unit_price} DA </p>
-             <p className='mx-1 text-sm font-bold '> {Product.price} DA </p>
+             
+             
+              {product.promotion && (
+                <div className="">
+                    <img src={coupon} alt="" className='absolute top-0 left-1' />
+                    <span className="absolute text-lg font-bold text-white transform top-4 left-5 -rotate-12" >10</span>
+                </div>
+               )}
+
+             
+
             </div>
-             <div className='m-2 '>
-                 </div>
-           <div className="absolute top-3 right-3 text-[#E50014] bg-[#E50014]/10 rounded-sm ">
-            <p className="">  -{ Product.price}%</p>
-            </div>
-            </Link >
-            
-           ))}
+              ))}
           </div>
         
 
@@ -100,3 +191,6 @@ return (
    ) ;
 };
 export default Offresspéciales 
+
+
+

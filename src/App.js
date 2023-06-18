@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Favorite from "./pages/Favorite";
 import GuideAchat from "./pages/GuideAchat";
 import Panier from "./pages/Panier";
@@ -28,15 +28,39 @@ import PublicRoute from "./utils/PublicRoute";
 import Layout from "./utils/Layout";
 import PanierCard from "./component/cards/PanierCard";
 import ResetPassword1 from "./component/ResetPassword1";
+import Search from "./pages/Search";
+import CommandDetails from "./pages/CommandDetails";
+import SousCategFemme from "./categorie/vetement/vetement-femme/SousCategFemme";
+import SousCategKids from "./categorie/vetement/vetement-kids/SousCategKids";
+import AutreCateg from "./categorie/Autre categorie/AutreCateg";
+import AllProduct from "./categorie/AllProduct/AllProduct";
+import Souscateghomme from "./categorie/vetement/vetement-Homme/Souscateghomme";
+import Lescadeaux from "./pages/Lescadeaux";
+import { useEffect } from "react";
+
+
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
+
 
 function App() {
   return (
     <div className="bg-[#ececec] ">
       <Router>
         <AuthProvider>
+        <ScrollToTop/>
           <Routes>
 
-             <Route path="/" element={<Layout />}> 
+            <Route path="/" element={<Layout />}> 
             <Route path="/" element={<LandingPage />} />
             <Route path="/Panier" element={<Panier />} />
             <Route path="/mes-favoris" element={<Favorite />} />
@@ -53,6 +77,22 @@ function App() {
             <Route path="/Nouvelles" element={<Nouvelles />} />
             <Route path="/Stock limites" element={<Stocklimités />} />
             <Route path="/ResetPassword1" element={<ResetPassword1/>}/> 
+            <Route path="/Search/:query" element={<Search/>} />
+            <Route path="/Products-All" element={<AllProduct/>} />
+            <Route path="/les-cadeaux" element={<Lescadeaux/>} />
+            <Route path="/categorie">
+                 <Route path="/categorie/vetement-homme">
+                  <Route path="/categorie/vetement-homme/:sousCategorieHomme" element={<Souscateghomme />} /> 
+                </Route>
+                <Route path="/categorie/vetement-femme">
+                  <Route path="/categorie/vetement-femme/:sousCategorieFemme" element={<SousCategFemme />} /> 
+                </Route>
+                <Route path="/categorie/vetement-kids">
+                  <Route path="/categorie/vetement-kids/:sousCategorieKids" element={<SousCategKids />} /> 
+                </Route>
+               <Route path="/categorie/collection/:sousCategorie"  element={<AutreCateg />} />
+            </Route>
+            
 
              </Route>
 
@@ -64,6 +104,7 @@ function App() {
              <Route element={<PrivateRoute />}> 
               <Route path="/Mes commande" element={<Commande />} />
               <Route path="/Profile" element={<Profile />} /> 
+              <Route path="/command/:id" element={<CommandDetails />} /> 
              </Route> 
 
 

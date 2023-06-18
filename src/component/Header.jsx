@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {BiMap} from 'react-icons/bi'
-import logo from './assets/logo.png'
+import logo from './assets/Group 1.svg'
 import {FaSearch} from 'react-icons/fa'
 import user from './assets/user.svg'
 import {AiOutlineClose} from 'react-icons/ai'
@@ -59,7 +59,7 @@ return (
  
  <div className='flex items-center justify-between h-[102px] bg-[#FFFFFF] '>
   
-  <Link className='ml-[89px] cursor-pointer' to='/' >
+  <Link className='ml-[89px] cursor-pointer w-[100px]' to='/' >
     <img  src={logo} alt="" />
   </Link>
   

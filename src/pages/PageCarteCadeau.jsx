@@ -4,6 +4,7 @@ import hoho from "../component/assets/Group 348.svg"
 
 import gift2 from '../component/cards/assetsCards/Group 293.png';
 import cadeau from '../component/assets/Group 326.png'
+import { Link } from 'react-router-dom';
 
 const PageCarteCadeau = () => {
 
@@ -94,7 +95,7 @@ const PageCarteCadeau = () => {
 </p>
 <div>
     <p className='text-xl'> <span className='font-bold'>1 point de FamiliShop</span> valent <span className='font-bold'>100 DA</span> que vous pouvez utiliser afin de régler vos achats éligibles sur FamiliShop.com</p>
-    <a className="inline-block py-2 font-semibold px-6 w-[330px] text-center ml-4 mt-[24px] border border-[#800B8D] text-[#800B8D] hover:text-white hover:bg-[#800B8D] transition-all duration-300 hover:shadow-md hover:scale-105" href="#"> Consulter votre solde de points</a>
+    <Link className="inline-block py-2 font-semibold px-6 w-[330px] text-center ml-4 mt-[24px] border border-[#800B8D] text-[#800B8D] hover:text-white hover:bg-[#800B8D] transition-all duration-300 hover:shadow-md hover:scale-105" to='/Profile'> Consulter votre solde de points</Link>
 
 </div>
     </div>
@@ -111,7 +112,7 @@ const PageCarteCadeau = () => {
       <h1 className='absolute text-3xl font-semibold tracking-widest bottom-14 left-[470px] '>Et tous ces points <br />vous donnent accès <br /><span className='text-[#FBEB08]'>à des cadeaux </span>!</h1>
       
     </div>
-    <a className="ml-[450px] inline-block py-2 font-semibold px-6 w-[295px] text-center ml-4 mt-[24px] border border-[#800B8D] text-white hover:text-[#800B8D] bg-[#800B8D] hover:bg-white transition-all duration-300 hover:shadow-md hover:scale-105 mb-28" href="#"> Voir les cadeaux disponibles</a>
+    <Link className="ml-[450px] inline-block py-2 font-semibold px-6 w-[295px] text-center ml-4 mt-[24px] border border-[#800B8D] text-white hover:text-[#800B8D] bg-[#800B8D] hover:bg-white transition-all duration-300 hover:shadow-md hover:scale-105 mb-28" to='/les-cadeaux'> Voir les cadeaux disponibles</Link>
 
    </div>
     </div>

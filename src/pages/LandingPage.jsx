@@ -18,23 +18,22 @@ import Vurécemment from '../component/cards/Vurécemment'
 import Navbar from '../component/Navbar'
 
 const LandingPage = () => {
+ 
   return (
     <>
    <Test/>
-   <div className="min-h-screen overflow-y-scroll scroll-container">
-    <AdsCarte/>
+   <AdsCarte/>
    <MagazinClubCard/>
-   <Stocklimite/>
+   <OffresRamadan/>
+   <Plusdemandés/>
    <CarteCadeau/>
+   <Stocklimite />
    <Offresspéciales id="offresspéciales"/>
    <Nouvaeaux id="nouvaeaux"/>
    <Hightech/>
    <Vurécemment/>
-   <Plusdemandés/> 
-   <Nouvaeaux/>
    <AppStore/>
-   </div>
-  
+   
     </>
   )
 }

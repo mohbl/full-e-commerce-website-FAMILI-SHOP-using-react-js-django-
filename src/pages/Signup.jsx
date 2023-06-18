@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import Logo from '../component/assets/logo.png'
+import Logo from '../component/assets/Group 1.svg'
 import facebook from '../component/assets/facebook.png'
 import google from '../component/assets/google.png'
 import AuthContext from '../context/AuthContext'
@@ -50,7 +50,8 @@ const handleRegister = async () => {
   }
   setLoading(true)
   const res = await registerUser(first_name, password, last_name, email, phone ,username)
-  setLoading(false)
+  setLoading(false);
+  setlogin(true);
 }
 
 const handleSubmit = (e) => {
@@ -70,7 +71,7 @@ const phonePattern = /^(05|06|07)\d{8}$/;
       </div>
       <div className= 'flex items-center justify-center gap-10 pt-3' >
         <h1 className={ login ?'border-b-2 cursor-pointer border-[#800B8D] transition duration-300 ease-in-out ': 'cursor-pointer'  }  onClick={()=>setlogin(true)}>Se connecter</h1>
-        <h1 className= {!login ? 'border-b-2 cursor-pointer border-[#800B8D] transition duration-300 ease-in-out ' :'cursor-pointer' }onClick={()=>setlogin(false)} >S’inscrire</h1>
+        <h1 className= {!login ? 'border-b-2 cursor-pointer border-[#800B8D] transition duration-300 ease-in-out ' :'cursor-pointer' } onClick={()=>setlogin(false)} >S’inscrire</h1>
       </div>
      
      
@@ -90,7 +91,7 @@ const phonePattern = /^(05|06|07)\d{8}$/;
        {/* Se connecter */}
       <form onSubmit={handleLogin} className= { login ?  ' flex justify-center items-center  duration-500 ease-in-out h-[580px]' :' hidden absolute left-[-100%]' }>
         <ul className='mt-[30px]'>
-          <li className=' border-2 '> <input onChange={(e) => setEmail(e.target.value)} value={email} type="text" className='h-[53px] w-[402px] p-2' placeholder='Adresse e-mail' pattern={emailPattern}/></li>
+          <li className='border-2 '> <input onChange={(e) => setEmail(e.target.value)} value={email} type="text" className='h-[53px] w-[402px] p-2' placeholder='Adresse e-mail' pattern={emailPattern}/></li>
           <li className='mt-5 border-2 '> <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" className='h-[53px] w-[402px] p-2 ' placeholder='Mot de pass' /></li>
         </ul> 
       </form>
@@ -98,7 +99,7 @@ const phonePattern = /^(05|06|07)\d{8}$/;
       
       {loading ? (
   <div className="flex items-center justify-center">
-    <div className="inline-block animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-purple-500 mr-2"></div>
+    <div className="inline-block w-4 h-4 mr-2 border-t-2 border-b-2 border-purple-500 rounded-full animate-spin"></div>
     <span>Connecting...</span>
   </div>
 ) : (

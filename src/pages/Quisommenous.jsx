@@ -17,24 +17,24 @@ const Quisommenous = () => {
          <div className='flex flex-col w-[360px] h-[370px] p-3  '>        
          <img src={Photo2} alt="" className='h-[300px]'/>
                     
-        <div className='shadow-sm'> <h1 className='p-2 text-center'>text</h1> </div>
+        
         </div>
         <div className='flex flex-col w-[360px] h-[370px] p-3'>        
          <img src={Photo3} alt="" className='h-[300px]'/>
                     
-         <div className='shadow-sm'> <h1 className='p-2 text-center'>text</h1> </div>
+         
         </div>
          
         <div className='flex flex-col w-[360px] h-[370px] p-3'>        
          <img src={Photo4} alt="" className='h-[300px]'/>
                     
-         <div className='shadow-sm'> <h1 className='p-2 text-center'>text</h1> </div>
+         
         </div>
         </div>  
        
          <div className='flex justify-between p-2 '>
             <img src={Photo5} alt=""  className='p-2 w-[700px]'/>
-            <h1 className='font-semibold'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+            <h1 className='font-semibold'>Famili Shop - Votre destination en ligne pour des produits de qualité. Explorez notre vaste sélection d'articles et trouvez tout ce dont vous avez besoin pour votre famille, des vêtements et accessoires tendance aux produits pour la maison. Livraison rapide et service client attentif. Faites confiance à Famili Shop pour simplifier votre expérience d'achat en ligne.</h1>
          </div>
        
         </div>  

@@ -5,7 +5,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import image from "../component/assets/Rectangle 71.png";
 import { BsChatSquareText } from "react-icons/bs";
 import axios from "axios";
-import { useParams } from "react-router-dom/dist";
+import { Await, useParams } from "react-router-dom/dist";
 import AuthContext from "../context/AuthContext";
 import Signup from "../pages/Signup";
 import { AiOutlineClose } from "react-icons/ai";
@@ -22,9 +22,8 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
-  const colors = ["red", "green", "blue", "yellow"]; // get clors from the db it's just test
+  const colors = ["red", "green", "blue", "yellow", "beige"]; // get clors from the db it's just test
   const availableSizes = ["s", "m", "l", "xl", "xxl"];
-  const productSizes = ["s", "l", "xxl"]; // Example: Get the product sizes from your Django API
   const { user, authTokens } = useContext(AuthContext);
 
   // handle changing comment
@@ -40,14 +39,14 @@ const ProductPage = () => {
       if (user) {
         // User is authenticated, make a POST request to the Django API
         productData.inCart = !productData.inCart;
-        setProductData({...productData});
-        if(productData.inCart) {
+        setProductData({ ...productData });
+        if (productData.inCart) {
           const response = await axios.post(
             "https://familishop.onrender.com/panier_add/",
             {
               product_id: productData.id, // Adjust the payload based on your API requirements
               userId: user.id, // Adjust the payload based on your API requirements
-              quantity: quantity
+              quantity: quantity,
             },
             {
               headers: {
@@ -55,12 +54,13 @@ const ProductPage = () => {
               },
             }
           );
-          toast.success('Produit ajouté aux panier !', {
+          toast.success("Produit ajouté aux panier !", {
             position: toast.POSITION.TOP_CENTER,
           });
         } else {
           const response = await axios.delete(
-            "https://familishop.onrender.com/panier_remove/"+productData.id,{
+            "https://familishop.onrender.com/panier_remove/" + productData.id,
+            {
               headers: {
                 Authorization: "Bearer " + authTokens,
               },
@@ -109,7 +109,7 @@ const ProductPage = () => {
       }
       productData.inCart = true;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       alert(error.message);
     }
   };
@@ -132,66 +132,71 @@ const ProductPage = () => {
 
   // handle the add/delete to/from favorite list function
 
-  const handleAddToFavorites = (i) => {
-    return async () => {
-      try {
-        if (user) {
-          // User is authenticated, make a POST request to the Django API
-          try {
-            const response = await axios.post(
-              "https://familishop.onrender.com/favorites/",
-              {
-                product: productData.id, // Adjust the payload based on your API requirements
-                user: user.id, // Adjust the payload based on your API requirements
-              },
-              {
-                headers: {
-                  Authorization: "Bearer " + authTokens,
-                },
-              }
-              
-            );
-          } catch (err) {
-            console.log(err);
-          }
+  const handleAddToFavorites = async () => {
+    try {
+      if (user) {
+        // User is authenticated, make a POST request to the Django API
+        const headers = {
+          Authorization: `Bearer ${authTokens}`,
+          "Content-Type": "application/json",
+        };
 
-          /*if (response.status === 201) {
-            // Product added to favorites successfully
-            // setIsFavorited(true);
+        const requestData = {
+          product: productData.id,
+          user: user.id,
+        };
 
-            alert('Product added to favorites!');
-          } else {
-            throw new Error('Failed to add product to favorites');
-          }*/
-        } else {
-          // User is not authenticated, store the favorite in session storage
-          const favorites =
-            JSON.parse(sessionStorage.getItem("cart")) || [];
-          const existingIndex = favorites.findIndex(
-            (fav) => fav.id === productData.id
+        let response = null;
+        console.log(productData);
+        if (!productData.isFavorited) {
+          console.log("not in favorites");
+          response = await axios.post(
+            "https://familishop.onrender.com/favorites/",
+            requestData,
+            { headers }
           );
-
-          if (existingIndex !== -1) {
-            // Product already exists in favorites, remove it
-            favorites.splice(existingIndex, 1);
-            // setIsFavorited(false);
-            alert("Product removed from favorites!");
-          } else {
-            // Product does not exist in favorites, add it
-            favorites.push(productData);
-            // setIsFavorited(true);
-            alert("Product added to favorites!");
-          }
-
-          sessionStorage.setItem("favorites", JSON.stringify(favorites));
+          console.log(response);
+        } else {
+          console.log("in favorites");
+          response = await axios.delete(
+            "https://familishop.onrender.com/favorites_remove/" +
+              productData.id,
+            { headers }
+          );
+          console.log(response);
         }
-        const newProducts = [...productData];
-        newProducts.isFavorited = !newProducts.isFavorited;
-        setProductData(newProducts);
-      } catch (error) {
-        alert(error.message);
+
+        // const newProducts = [...productData];
+        // newProducts.isFavorited = !newProducts.isFavorited;
+        setProductData((prev) => ({
+          ...prev,
+          isFavorited: !prev.isFavorited,
+        }));
+      } else {
+        // User is not authenticated, store the favorite in session storage
+        const favorites = JSON.parse(sessionStorage.getItem("favorites")) || [];
+        const existingIndex = favorites.findIndex(
+          (fav) => fav.id === productData.id
+        );
+
+        if (existingIndex !== -1) {
+          // Product already exists in favorites, remove it
+          favorites.splice(existingIndex, 1);
+          setIsFavorited(false);
+          alert("Product removed from favorites!");
+        } else {
+          // Product does not exist in favorites, add it
+          favorites.push(productData);
+          setIsFavorited(true);
+          alert("Product added to favorites!");
+        }
+
+        sessionStorage.setItem("favorites", JSON.stringify(favorites));
       }
-    };
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
   };
 
   // fetch the product api
@@ -202,14 +207,38 @@ const ProductPage = () => {
           "https://familishop.onrender.com/products/" + id
         );
         const data = response.data;
-        const cart = await axios.get('https://familishop.onrender.com/panier/', {
-          headers: {
-            Authorization:'Bearer '+localStorage.getItem('authTokens')
-          }
-        }).then(res => res.data);
+
+
+
+        if(user) {
+
+          const cart = await axios
+          .get("https://familishop.onrender.com/panier/", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("authTokens"),
+            },
+          })
+          .then((res) => res.data);
+          
+          
+          
+          
+        const fav = await axios
+        .get("https://familishop.onrender.com/favorites/", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("authTokens"),
+            },
+          })
+          .then((res) => res.data);
+
         // console.log(data)
-        data.inCart = cart.findIndex(v => v.product === data.id) !== -1;
+        data.inCart = cart.findIndex((v) => v.product === data.id) !== -1;
+        data.isFavorited = fav.findIndex((v) => v.product === data.id) !== -1;
         setProductData(data);
+      } else {
+        setProductData(data)
+        
+      }
       } catch (error) {
         alert(error.message);
       }
@@ -223,26 +252,26 @@ const ProductPage = () => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       if (user) {
         const headers = {
           Authorization: `Bearer ${localStorage.getItem("authTokens")}`,
           "Content-Type": "application/json",
         };
-  
+
         const formData = new FormData();
         formData.append("product", productData.id);
         formData.append("text", postComment);
-  
+
         const response = await axios.post(
           "https://familishop.onrender.com/comments/create/",
           formData,
           { headers }
         );
-  
+
         console.log(response);
-  
+
         // Display alert based on the response status
         toast.success("Commentaire envoyé avec succès !", {
           position: toast.POSITION.TOP_CENTER,
@@ -256,8 +285,6 @@ const ProductPage = () => {
       alert(error.message);
     }
   };
-  
-  
 
   const [login, setlogin] = useState(false);
   const gotologin = () => {
@@ -267,16 +294,16 @@ const ProductPage = () => {
     setlogin(false);
   };
 
-   //handle the quantity change
-   const handleQuantityChange = (newQuantity) => {
-    if (newQuantity >= 1 && newQuantity <= productData.inventory) {
+  //handle the quantity change
+  const handleQuantityChange = (newQuantity) => {
+    if (newQuantity >= 1 && newQuantity <= productData.quantity) {
       setQuantity(newQuantity);
     }
   };
 
   //handle the increment and the decrement function
   const handleIncrement = () => {
-    if (quantity < productData.inventory) {
+    if (quantity < productData.quantity) {
       handleQuantityChange(quantity + 1);
     }
   };
@@ -297,14 +324,10 @@ const ProductPage = () => {
               {/* product section */}
               {productData ? (
                 <div className="flex mx-[43px] relative">
-                  <div className="w-[297px] h-[347px] my-[40px] ">
-                    <div className=" h-[76px] flex justify-end pr-[24px] pt-[15px] ">
-                      <p className="bg-[#E50014] bg-opacity-10 text-[#E50014] w-[39px] h-[19px] ">
-                        -40%
-                      </p>
-                    </div>
-                    <div className="w-[228px] h-[201px] mx-[33px] flex justify-center ">
-                      <img src={image} alt="/" />
+                  <div className="w-[297px] h-[347px] my-[40px] relative ">
+                    <div className="absolute top-2 left-56"></div>
+                    <div className=" mr-[33px] flex justify-center pt-2 ">
+                      <img src={productData.alt_image} alt="/" />
                     </div>
                   </div>
 
@@ -316,17 +339,21 @@ const ProductPage = () => {
                       <p>{productData?.description}</p>
                     </div>
 
-                    <div className="flex items-center space-x-4 mt-[20px]">
+                    <div className="flex items-center space-x-4 mt-[10px]">
                       <h2 className="text-[#E50014] line-through text-[12px]">
-                        14,750DA
+                        {productData.discount_percentage !== '0' &&(
+                          (productData.price * 100) /
+                          productData.discount_percentage
+                        ).toFixed(2)}
+                        DA
                       </h2>
                       <h2 className="text-lg font-bold">
-                        {productData?.unit_price} DA
+                        {productData?.price} DA
                       </h2>
                     </div>
                     <div>
                       <p className="text-[12px] font-medium mt-2">
-                        {productData?.inventory} articles restants
+                        {productData?.quantity} articles restants
                       </p>
                     </div>
                     <div className="w-full h-4 bg-gray-100 rounded-full mt-[20px]">
@@ -336,18 +363,20 @@ const ProductPage = () => {
                       />
                     </div>
                     {productData.colors && (
-                      <div className="flex items-center">
-                        {colors.map((color) => (
-                          <div
-                            key={color}
-                            className="w-6 h-6 mt-5 mr-4 border-4 border-gray-300 rounded-full shadow-lg hover:border-none"
-                            style={{ backgroundColor: productData.colors }}
-                          />
-                        ))}
-                      </div>
-                    )}
+  <div className="flex items-center">
+    {productData.colors.split(',').map((color, i) => (
+      <div
+        key={color}
+        className="w-6 h-6 mt-5 mr-4 border-4 border-gray-100 rounded-full shadow-sm hover:border-none"
+        style={{ backgroundColor: color.trim() }}
+      />
+    ))}
+  </div>
+)}
+
+
                     {productData.taille && (
-                      <div className="flex justify-between mt-4">
+                      <div className="flex justify-between mt-2">
                         <div className="">
                           <h1 className="text-sm font-medium">
                             OPTIONS DISPONIBLES
@@ -357,13 +386,13 @@ const ProductPage = () => {
                               <div
                                 key={size}
                                 className={`w-8 h-8 relative mr-4 shadow font-normal text-base transition-all duration-300 ease-in-out ${
-                                  productSizes.includes(size)
+                                  productData.taille.includes(size)
                                     ? "text-black hover:scale-110"
                                     : "text-[#D9D9D9]"
                                 }`}
                               >
                                 <div className="relative flex items-center justify-center">
-                                  {!productSizes.includes(size) && (
+                                  {!productData.taille.includes(size) && (
                                     <div className="absolute h-[1px] w-10 bg-[#D9D9D9] top-3 transform rotate-45" />
                                   )}
                                   <span className="">{size}</span>
@@ -375,20 +404,22 @@ const ProductPage = () => {
                       </div>
                     )}
                     <div className="flex items-center justify-center mt-2">
-                        <button
-                          className="w-[40px] h-[40px] font-bold text-3xl text-white bg-[#800B8D] rounded hover:bg-[#bf33cf] active:bg-[#f07ffd]"
-                          onClick={handleDecrement}
-                        >
-                          -
-                        </button>
-                        <span className="px-[25px] font-bold text-xl ">{quantity}</span>
-                        <button
-                          className="w-[40px] h-[40px] font-bold text-3xl text-white bg-[#800B8D] rounded  hover:bg-[#bf33cf] active:bg-[#f07ffd]"
-                          onClick={handleIncrement}
-                        >
-                          +
-                        </button>
-                      </div>
+                      <button
+                        className="w-[40px] h-[40px] font-bold text-3xl text-white bg-[#800B8D] rounded hover:bg-[#bf33cf] active:bg-[#f07ffd]"
+                        onClick={handleDecrement}
+                      >
+                        -
+                      </button>
+                      <span className="px-[25px] font-bold text-xl ">
+                        {quantity}
+                      </span>
+                      <button
+                        className="w-[40px] h-[40px] font-bold text-3xl text-white bg-[#800B8D] rounded  hover:bg-[#bf33cf] active:bg-[#f07ffd]"
+                        onClick={handleIncrement}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
 
                   <div className="mt-[55px] w-[180px] ">
@@ -396,14 +427,14 @@ const ProductPage = () => {
                       {productData.isFavorited ? (
                         <FaHeart
                           className="text-red-500 cursor-pointer hover:text-[#E50014]"
-                          onClick={handleAddToFavorites()}
-                          size={20}
+                          onClick={handleAddToFavorites}
+                          size={25}
                         />
                       ) : (
                         <FaRegHeart
                           className="text-gray-900 cursor-pointer hover:text-[#E50014]"
-                          onClick={handleAddToFavorites()}
-                          size={20}
+                          onClick={handleAddToFavorites}
+                          size={25}
                         />
                       )}
                     </div>
@@ -422,7 +453,6 @@ const ProductPage = () => {
                     </span>
                     <FiShoppingCart size={20} className="text-white" />
                   </button>
-                  
                 </div>
               ) : (
                 <div className="flex items-center justify-center w-full h-full mt-[210px]">
@@ -485,8 +515,7 @@ const ProductPage = () => {
             </h2>
           </div>
 
-          {productData
-            ? productData.comments.map((comment) => (
+          {productData && productData.comments.length > 0 ? productData.comments.map((comment) => (
                 <div className="border-b" key={comment.id}>
                   <div className="px-[35px] pt-[19px] ">
                     <div className="border-gray-300 borbder-b">
@@ -511,7 +540,10 @@ const ProductPage = () => {
                   </div>
                 </div>
               ))
-            : null}
+            : 
+          <div className="flex items-center justify-center h-64 rounded-lg">
+            <h1 className="text-lg font-semibold text-gray-500">No comments yet</h1>
+          </div>}
         </div>
       </div>
 

@@ -5,6 +5,8 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import Qr from '../component/assets/Qr.png'
 import AuthContext from '../context/AuthContext';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Vurécemment from '../component/cards/Vurécemment';
 
 const Profile = () => {
   
@@ -22,7 +24,8 @@ const Profile = () => {
           Authorization: `Bearer ${localStorage.getItem("authTokens")}`,
         },
       });
-      setUserData(response.data[0]);
+      setUserData(response.data);
+      console.log(response)
     } catch (error) {
       console.error(error);
     }
@@ -32,51 +35,51 @@ const Profile = () => {
 }, []);
 
 
- const [posts, setPosts] = useState([]);
-useEffect(() => {
-   fetch('https://fakestoreapi.com/products?limit=4')
-      .then((response) => response.json())
-      .then((data) => {
-         console.log(data);
-         setPosts(data);
-      })
-      .catch((err) => {
-         console.log(err.message);
-      });
-}, []);
-console.log(posts) 
+//  const [posts, setPosts] = useState([]);
+// useEffect(() => {
+//    fetch('https://fakestoreapi.com/products?limit=4')
+//       .then((response) => response.json())
+//       .then((data) => {
+//          console.log(data);
+//          setPosts(data);
+//       })
+//       .catch((err) => {
+//          console.log(err.message);
+//       });
+// }, []);
+// console.log(posts) 
 
-const [list, setList] = useState([]);
-const handleAddfavoris = (i) => {
-  let items =[...list, i]
-// list.push(i)
-  setList(items);
-console.log(items)
-};
+// const [list, setList] = useState([]);
+// const handleAddfavoris = (i) => {
+//   let items =[...list, i]
+// // list.push(i)
+//   setList(items);
+// console.log(items)
+// };
 
-const handleRemovefavoris = (i) => {
+// const handleRemovefavoris = (i) => {
 
    
-     // const lastIndex = items.length - 1;
+//      // const lastIndex = items.length - 1;
 
-    // items.splice(list.indexOf(i),1)
-   let  items=list.filter(t=>t.id!==i.id )  
-    setList(items)
+//     // items.splice(list.indexOf(i),1)
+//    let  items=list.filter(t=>t.id!==i.id )  
+//     setList(items)
   
 
-  console.log(items) };
+//   console.log(items) };
 
 
  
- const {user} = useContext(AuthContext)
+//  const {user} = useContext(AuthContext)
  
- const [code , activatecode] =useState(false);
- const activer=()=>{
-    activatecode(true) ;
-    }
-    const desactiver=()=>{
-      activatecode(false) ;
-      }
+//  const [code , activatecode] =useState(false);
+//  const activer=()=>{
+//     activatecode(true) ;
+//     }
+//     const desactiver=()=>{
+//       activatecode(false) ;
+//       }
      return (
     <div className='PageContainer '>
      
@@ -84,11 +87,12 @@ const handleRemovefavoris = (i) => {
         <div className='flex justify-start m-3 '>
        <div className='bg-white border shadow-md w-[325px] h-[325px]'>
          <ul className=''>
-            <li className='mt-12 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'>Mes Commandes</li>
-            <li className='my-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'> Ma Catre Cadeau </li>
-            <li className='my-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'> Vu récemment </li>
-            <li className='my-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4 '>Guide d’achat et conseils</li>
-            <li className='mt-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'>Produits recommandés </li>
+          <Link to='/Mes commande'> <li className='mt-12 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'>Mes Commandes</li>  </Link> 
+          <Link to='/Offre Speciale'>  <li className='my-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'> Offre Speciale </li></Link>
+          <Link to='/Guide dachat'>  <li className='my-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4 '>Guide d’achat et conseils</li></Link>
+          <Link to='/mes-favoris'>  <li className='mt-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'>mes favoris </li></Link>
+          <Link to='/Panier'> <li className='mt-7 font-semibold cursor-pointer hover:text-[#800B8D] pl-4'>panier </li></Link>
+
          </ul>
        </div>
          <div className='relative w-full p-2 mx-3 bg-white shadow-md'>
@@ -99,37 +103,31 @@ const handleRemovefavoris = (i) => {
             </div>
             
            <ul className='mx-8 '>
-             <li className='my-6 font-bold'> Nom et prénom : {userData?.first_name} {userData?.last_name} </li>
-             <li className='my-6 font-bold'>Adresse email : {userData?.email}  </li>
-             <li className='my-6 font-bold'> Numéro de téléphone : {userData?.phone_number}  </li>
-             {/* <li className='my-4 font-bold'>  Adresse :{user?.password}</li>  */}
-             <li className={ code ? 'my-4 font-bold ' :'hidden'}> Mes Point : </li>
+             <li className='my-4 font-bold'> Nom et prénom : {userData?.first_name} {userData?.last_name} </li>
+             <li className='my-4 font-bold'>Adresse email : {userData?.email}  </li>
+             <li className='my-4 font-bold'> Numéro de téléphone : {userData?.phone_number}  </li>
+             <li className=  'my-4 font-bold text-[#800B8D]'> Mes point de carte cadeau : {userData?.points} </li>
+             {userData.membership&&  <li className= 'font-bold text-[#800B8D] '> adhésion: {userData?.membership} </li>}
             </ul>    
             
-             <div className='absolute bottom-7 right-7'>
+             {/* <div className='absolute bottom-7 right-7'>
             <button className={ code  ?  ' hidden ' : 'bg-[#800B8D] hover:bg-[#bf33cf]  hover:border-[#f07ffd] border-2 border-[#A63041] transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:bg-[#f07ffd] rounded font-semibold ' } onClick={activer} > Activer carte cadeau </button>
             <button className={ code ?'bg-[#800B8D] hover:bg-[#bf33cf]  hover:border-[#f07ffd] border-2 border-[#A63041] transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:bg-[#f07ffd] rounded font-semibold ': 'hidden'} onClick={desactiver}>  Désactiver carte cadeau </button>
-            </div>
+            </div> */}
             </div>
         </div>
 
    
 
         <div className='flex justify-start m-3'>
-       <div className='flex flex-col items-center p-5 mx-1 shadow-md '>
-          <h1 className='text-sm font-semibold text-center'>Application mobile FamiliShop</h1>
-          <img src={Qr} alt="" className='my-3 cursor-pointer ' />
-          <h1 className='my-3 text-sm font-semibold text-center'>Numérisez ou cliquez ici pour télécharger</h1>
-
-
-       </div>
-         <div className='w-full p-2 mx-3 shadow-md '>
+      
+         <div className='bg-white '>
            
-            <div className='flex items-center justify-between '>
-                <h1 className='text-md font-bold border-b-2 border-[#800B8D] p-1 '> Produits recommandés </h1>
-            </div>
+           
+
+            <Vurécemment />
               
-            <div className='grid grid-cols-1 m-2 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2'>
+            {/* <div className='grid grid-cols-1 m-2 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2'>
            {posts.map((post)=>(
             <div key={post.id} className=' relative text-black  m-2   bg-[#F8F8F8]      ' > 
               <div className="  flex justify-center items-center  h-[200px] ">
@@ -163,7 +161,7 @@ const handleRemovefavoris = (i) => {
             </div >
             
            ))}
-          </div>
+          </div> */}
 
             
            

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import {BiMap} from 'react-icons/bi'
-import logo from './assets/logo.png'
+import logo from './assets/Group 1.svg'
 import {FaSearch} from 'react-icons/fa'
 import { Link , NavLink } from 'react-router-dom';
 
@@ -16,22 +16,63 @@ import {BsPersonFillUp} from 'react-icons/bs'
 import NotificationCard from './cards/NotificationCard';
 import {RiUserReceived2Line} from 'react-icons/ri'
 import AuthContext from '../context/AuthContext';
-
+import { useNavigate } from 'react-router-dom';
 
 
 function UserHeader() {
   const {logoutUser} = useContext(AuthContext)
-
+  const [userData,setUserData] = useState([]);
   const [isFixed, setIsFixed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const navigate = useNavigate();
+  
+  const handleClick = () => {
+    navigate("/Search/"+link);
+  };
+  const [link, setLink] = useState('');
+  
+
+  // fetch user data 
+ useEffect(() => {
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("https://familishop.onrender.com/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authTokens")}`,
+        },
+      });
+      setUserData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchUserData();
+}, []);
+
  const { user } = useContext(AuthContext)
-  useEffect(() => {
-    axios.get('http://localhost:3000/notifications')
-      .then(response => setNotifications(response.data))
-      .catch(error => console.log(error));
-  }, []);
+ 
+ //notification push
+ useEffect(() => {
+  const fetchNotifications = async () => {
+    try {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("authTokens")}`,
+      };
+
+      const response = await axios.get('https://familishop.onrender.com/notifications', { headers });
+      setNotifications(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchNotifications();
+}, []);
+
+
 
   const handleDropdownClick = () => {
     setIsOpen(!isOpen);
@@ -78,18 +119,24 @@ function UserHeader() {
  
  <div className='flex items-center justify-between h-[102px] bg-[#FFFFFF] '>
   
-  <Link className='ml-[89px] cursor-pointer' to='/' >
+  <Link className='ml-[89px] cursor-pointer w-[120px] ' to='/' >
     <img  src={logo} alt="" />
   </Link>
-  
+  <form onSubmit={handleClick}>
 <div className="flex items-center w-[520px] h-[38px] border-[3.5px] ml-[95px] rounded-md border-[#800B8D]">
-  <input type="text" placeholder="Chercher un produit, une marque, ou une categorie" onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = 'Chercher un produit, une marque, ou une categorie'} className="w-full h-full pl-2 outline-none g-transparent i" />
+  
+  <input  
+  type="text"
+  value={link}
+  onChange={(e) => setLink(e.target.value)}
+  placeholder="Chercher un produit, une marque, ou une categorie" onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = 'Chercher un produit, une marque, ou une categorie'} className="w-full h-full pl-2 outline-none g-transparent i" />
    <div className='bg-[#800B8D] h-[34px] w-[43.68px] flex justify-center items-center'>
     <div className='p-[5px] text-white '>
-      <FaSearch size={20}/>
+    <button type='submit'>  <FaSearch size={20} className='cursor-pointer'/></button>
     </div>
   </div>
 </div>
+</form>
 
 <div className='flex items-center mr-[41px]  '>
     
@@ -99,7 +146,7 @@ function UserHeader() {
         onClick={handleDropdownClick}
       >
         <AiOutlineUser size={25} />
-        <h1>Bonjour, {user?.first_name || "User"}</h1>
+        <h1>Bonjour, {userData?.first_name}</h1>
         {isOpen ? (
           <FaChevronUp className="pt-1" size={16} />
         ) : (
@@ -144,31 +191,22 @@ function UserHeader() {
             <li className='flex px-4 py-2 text-xl '>
               Nouveau 
               <div className='h-4 ml-1 bg-gray-100 w-4 text-center mt-[8.5px] rounded-full'>
-                <h1 className=' text-xs text-[#800B8D]'>1</h1>
+                <h1 className=' text-xs text-[#800B8D]'>{notifications.length}</h1>
               </div>
             </li>
             {notifications.map(notification => (
-           <div className='flex pl-2 pr-2 bg-white h-[54px] items-center hover:bg-[#E3E2E2]  'key={notification.id}>
-           <RiUserReceived2Line size={35}/>
-           <h1 className='ml-1 text-xs text-left '>{notification.content}</h1>
-         <h1 className='text-[13px] text-[#727272] font-medium pb-4 '>{notification.date}AM </h1>
-         
-             </div>
-          ))}
-            <li className='flex px-4 py-2 text-xl '>
-             Plus tot 
-              <div className='h-4 ml-4 bg-gray-100 w-4 text-center mt-[8.5px] rounded-full'>
-                <h1 className=' text-xs text-[#800B8D]'>1</h1>
-              </div>
-            </li>
-            {notifications.map(notification => (
-           <div className='flex pl-2 pr-2 bg-white h-[54px] items-center hover:bg-[#E3E2E2]  ' key={notification.id}>
-           <RiUserReceived2Line size={30}/>
-           <h1 className='ml-1 text-xs text-left '>{notification.content}</h1>
-         <h1 className='text-[13px] text-[#727272] font-medium pb-4 '>{notification.date}AM </h1>
-         
-             </div>
-          ))}
+  <div className='pl-2 pr-2 bg-white h-[54px] items-center hover:bg-[#E3E2E2] ' key={notification.id}>
+    <div className='flex'>
+      <RiUserReceived2Line size={20} />
+      <h1 className='ml-1 text-xs text-left'>{notification.message}</h1>
+    </div>
+    <h1 className='text-[13px] text-[#727272] font-medium pb-4 text-right'>
+      {new Date(notification.created_at).toLocaleString()}
+    </h1>
+  </div>
+))}
+
+            
           </ul>
         </div>
       )}

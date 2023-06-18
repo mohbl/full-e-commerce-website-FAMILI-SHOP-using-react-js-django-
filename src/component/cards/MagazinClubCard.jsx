@@ -36,7 +36,7 @@ const MagazinClubCard = () => {
     delay: 500,
   });
   return (
-    <Link to='/Magazin club'>
+    <Link to='/Magazin-club'>
     <div className='PageContainer h-[250px] bg-[#800B8D] flex justify-between mt-5'>
         <div className='relative'>
             <img src={magazin} alt="" className='ml-24  h-[240px]' />
